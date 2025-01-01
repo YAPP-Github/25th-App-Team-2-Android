@@ -1,4 +1,4 @@
-package co.kr.tnt
+package co.kr.tnt.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
