@@ -25,4 +25,8 @@ rootProject.name = "TnT"
 include(":app")
 include(":data")
 include(":domain")
-include(":core:designsystem")
+
+include(
+    ":core:designsystem",
+    ":core:navigation",
+)
