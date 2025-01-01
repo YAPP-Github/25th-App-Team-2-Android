@@ -8,3 +8,16 @@ dependencies {
     implementation(libs.kotlin.gradlePlugin)
     compileOnly(libs.compose.compiler.gradle.plugin)
 }
+
+gradlePlugin {
+    plugins {
+        register("androidHilt") {
+            id = "tnt.android.hilt"
+            implementationClass = "co.kr.tnt.HiltAndroidPlugin"
+        }
+        register("kotlinHilt") {
+            id = "tnt.kotlin.hilt"
+            implementationClass = "co.kr.tnt.HiltKotlinPlugin"
+        }
+    }
+}
