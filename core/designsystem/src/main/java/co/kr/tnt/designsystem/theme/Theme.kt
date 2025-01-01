@@ -1,4 +1,4 @@
-package co.kr.tnt.ui.theme
+package co.kr.tnt.designsystem.theme
 
 import android.app.Activity
 import android.os.Build

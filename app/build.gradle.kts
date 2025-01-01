@@ -43,5 +43,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.designsystem)
+
     implementation(libs.androidx.activity.compose)
 }
