@@ -29,4 +29,5 @@ include(":domain")
 include(
     ":core:designsystem",
     ":core:navigation",
+    ":core:ui",
 )
