@@ -14,6 +14,8 @@ android {
 configureHiltAndroid()
 
 dependencies {
+    implementation(project(":domain"))
+
     val libs = project.extensions.libs
     implementation(libs.findLibrary("hilt.navigation.compose").get())
     implementation(libs.findLibrary("androidx.compose.navigation").get())
