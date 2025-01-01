@@ -31,3 +31,5 @@ include(
     ":core:navigation",
     ":core:ui",
 )
+
+include(":feature:main")
