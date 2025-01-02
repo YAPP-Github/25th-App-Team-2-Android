@@ -11,5 +11,5 @@ data class TnTResponse(
 )
 
 fun TnTResponse.toDomain(): TnT = TnT(
-    id = id
+    id = id,
 )

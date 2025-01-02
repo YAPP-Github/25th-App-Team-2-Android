@@ -10,9 +10,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun HomeScreen(
+    @Suppress("UnusedParameter")
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
-
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Text("home", modifier = Modifier.padding(innerPadding))
     }
