@@ -3,6 +3,7 @@ import co.kr.tnt.configureTest
 
 plugins {
     kotlin("jvm")
+    id("tnt.verify.lint")
 }
 
 configureKotlin()

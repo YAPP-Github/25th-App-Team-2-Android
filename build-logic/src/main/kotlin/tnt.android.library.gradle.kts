@@ -5,6 +5,7 @@ import co.kr.tnt.configureTest
 
 plugins {
     id("com.android.library")
+    id("tnt.verify.lint")
 }
 
 configureKotlinAndroid()
