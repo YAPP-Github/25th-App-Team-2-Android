@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -11,6 +12,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -21,3 +23,16 @@ dependencyResolutionManagement {
 
 rootProject.name = "TnT"
 include(":app")
+include(":data")
+include(":domain")
+
+include(
+    ":core:designsystem",
+    ":core:navigation",
+    ":core:ui",
+)
+
+include(
+    ":feature:main",
+    ":feature:home",
+)

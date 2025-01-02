@@ -1,4 +1,4 @@
-package co.kr.tnt
+package co.kr.tnt.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,8 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import co.kr.tnt.ui.theme.TnTTheme
+import co.kr.tnt.designsystem.theme.TnTTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
