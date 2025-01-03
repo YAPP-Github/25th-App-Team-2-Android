@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Extract the current branch name
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+
+# Identify the JIRA ticket number from the branch name (e.g., "TICKET-231")
+JIRA_TICKET=$(echo "$BRANCH_NAME" | grep -oE '[A-Z]+-[0-9]+')
+
+# Prepend the JIRA ticket to the commit message if found
+if [ ! -z "$JIRA_TICKET" ]; then
+    COMMIT_MSG=$(cat "$1")
+    # Check if the message already starts with a ticket pattern like [SB-...]
+    # shellcheck disable=SC2039
+    if [[ ! "$COMMIT_MSG" =~ ^\[[A-Z]+-[0-9]+\] ]]; then
+        # Format the ticket as [TICKET-231] and prepend it
+        echo "[$JIRA_TICKET] $COMMIT_MSG" > "$1"
+    fi
+fi
