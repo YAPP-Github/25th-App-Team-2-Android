@@ -9,9 +9,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val tntUseCase: TnTUseCase
+    private val tntUseCase: TnTUseCase,
 ) : ViewModel() {
-
     init {
         viewModelScope.launch {
             tntUseCase()

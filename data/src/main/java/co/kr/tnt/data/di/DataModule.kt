@@ -10,7 +10,6 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 @Module
 internal abstract class DataModule {
-
     @Binds
     abstract fun bindsTnTRepository(
         repository: TnTRepositoryImpl,

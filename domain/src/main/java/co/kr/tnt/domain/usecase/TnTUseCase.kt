@@ -3,6 +3,7 @@ package co.kr.tnt.domain.usecase
 import co.kr.tnt.domain.repository.TnTRepository
 import javax.inject.Inject
 
+@Suppress("UnusedPrivateProperty")
 class TnTUseCase @Inject constructor(
     private val tntRepository: TnTRepository,
 ) {

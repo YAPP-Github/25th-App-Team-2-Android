@@ -11,5 +11,5 @@ data class TnTRequest(
 )
 
 fun TnT.toRemote(): TnTRequest = TnTRequest(
-    id = this.id
+    id = this.id,
 )
