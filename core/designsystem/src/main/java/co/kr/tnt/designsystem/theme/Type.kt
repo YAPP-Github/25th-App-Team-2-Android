@@ -120,4 +120,3 @@ val LocalTypography = staticCompositionLocalOf {
         caption1 = PretendardStyle,
     )
 }
-

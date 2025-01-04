@@ -93,7 +93,6 @@ val Violet_200 = Color(0xFFDBD3FE)
 val Violet_100 = Color(0xFFF0ECFE)
 val Violet_50 = Color(0xFFFBFAFF)
 
-
 // Purple Color
 val Purple_950 = Color(0xFF290247)
 val Purple_900 = Color(0xFF580A7D)
