@@ -105,4 +105,5 @@ jobs:
            token: ${{ secrets.GITHUB_TOKEN }}
            issue-number: ${{ github.event.issue.number }}
            body: |
-             Jira Issue Created: [[${{ steps.create-subtask.outputs.issue || steps.create-issue.outputs.issue }}]](${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create-subtask.outputs.issue || steps.create-issue.outputs.issue }})
+             Jira Issue Created: [\[${{ steps.create-subtask.outputs.issue || steps.create-issue.outputs.issue }}\]](${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create-subtask.outputs.issue || steps.create-issue.outputs.issue }})
+
