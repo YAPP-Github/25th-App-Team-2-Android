@@ -50,7 +50,7 @@ fun TnTTheme(
     }
 
     CompositionLocalProvider(
-        LocalTypography provides Typography
+        LocalTypography provides Typography,
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
