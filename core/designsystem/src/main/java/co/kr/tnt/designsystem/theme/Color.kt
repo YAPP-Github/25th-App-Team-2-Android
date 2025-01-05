@@ -10,13 +10,6 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-// Text Color
-val Text_Normal = Color(0xFF0A0A0A)
-val Text_Strong = Color(0xFF171717)
-val Text_Neutral = Color(0xFF404040)
-val Text_Alternative = Color(0xFF737373)
-val Text_Disable = Color(0xFFD4D4D4)
-
 // Main color
 val Red_950 = Color(0xFF450A0A)
 val Red_900 = Color(0xFF7F1D1D)
