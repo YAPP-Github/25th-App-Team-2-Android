@@ -15,6 +15,7 @@ val Red_400 = Color(0xFFF87171)
 val Red_300 = Color(0xFFFCA5A5)
 val Red_200 = Color(0xFFFECACA)
 val Red_100 = Color(0xFFFEE2E2)
+val Red_50 = Color(0xFFFFF0F0)
 
 // Green Color
 val Green_950 = Color(0xFF00240C)
@@ -149,6 +150,7 @@ data class MainColors(
     val Red300: Color,
     val Red200: Color,
     val Red100: Color,
+    val Red50: Color,
 )
 
 @Immutable
@@ -289,6 +291,7 @@ val LocalColors = staticCompositionLocalOf {
             Red300 = Red_300,
             Red200 = Red_200,
             Red100 = Red_100,
+            Red50 = Red_50,
         ),
         greenColors = GreenColors(
             Green950 = Green_950,
@@ -396,6 +399,6 @@ val LocalColors = staticCompositionLocalOf {
         commonColors = CommonColors(
             Common100 = Common_100,
             Common0 = Common_0,
-        )
+        ),
     )
 }
