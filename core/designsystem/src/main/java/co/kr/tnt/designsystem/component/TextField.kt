@@ -121,6 +121,7 @@ fun TnTLabeledTextField(
     maxLength: Int = 15,
     isSingleLine: Boolean = false,
     showWarning: Boolean = false,
+    optional: Boolean = false,
     warningMessage: String? = null,
     rightComponent: @Composable () -> Unit = {},
     modifier: Modifier = Modifier,
@@ -144,11 +145,13 @@ fun TnTLabeledTextField(
                     style = TnTTheme.typography.body1Bold,
                     color = TnTTheme.colors.neutralColors.Neutral900,
                 )
-                Text(
-                    text = "*",
-                    style = TnTTheme.typography.body1Bold,
-                    color = TnTTheme.colors.mainColors.Red500,
-                )
+                if (!optional) {
+                    Text(
+                        text = "*",
+                        style = TnTTheme.typography.body1Bold,
+                        color = TnTTheme.colors.mainColors.Red500,
+                    )
+                }
             }
 
             Text(
@@ -220,6 +223,7 @@ fun TnTLabeledTextFieldPreview() {
             maxLength = maxLength,
             showWarning = true,
             isSingleLine = true,
+            optional = false,
             warningMessage = "${maxLength}자 이내로 입력해주세요",
             modifier = Modifier
                 .fillMaxWidth()
