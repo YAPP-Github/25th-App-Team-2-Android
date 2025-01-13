@@ -1,11 +1,8 @@
 package co.kr.tnt.designsystem.component.button
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -126,16 +123,11 @@ fun TnTBottomButton(
             .fillMaxWidth()
             .height(100.dp),
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                text = text,
-                style = TnTTheme.typography.h4,
-            )
-        }
+        Text(
+            text = text,
+            style = TnTTheme.typography.h4,
+            modifier = Modifier.align(Alignment.Top),
+        )
     }
 }
 
