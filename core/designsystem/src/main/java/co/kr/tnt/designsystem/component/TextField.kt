@@ -3,6 +3,7 @@ package co.kr.tnt.designsystem.component
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -38,7 +39,7 @@ fun TnTTextField(
     isSingleLine: Boolean = false,
     showWarning: Boolean = false,
     warningMessage: String? = null,
-    trailingComponent: @Composable () -> Unit = {},
+    trailingComponent: @Composable BoxScope.() -> Unit = {},
 ) {
     var isFocused by remember { mutableStateOf(false) }
 
@@ -55,51 +56,39 @@ fun TnTTextField(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Box(
-                contentAlignment = Alignment.CenterStart,
+            BasicTextField(
+                value = value,
+                onValueChange = onValueChange,
+                singleLine = isSingleLine,
+                cursorBrush = SolidColor(TnTTheme.colors.neutralColors.Neutral900),
+                textStyle = TnTTheme.typography.body1Medium.copy(
+                    color = TnTTheme.colors.neutralColors.Neutral600,
+                ),
                 modifier = Modifier
                     .weight(1f)
-                    .padding(end = 8.dp),
-            ) {
-                BasicTextField(
-                    value = value,
-                    onValueChange = onValueChange,
-                    singleLine = isSingleLine,
-                    cursorBrush = SolidColor(TnTTheme.colors.neutralColors.Neutral900),
-                    textStyle = TnTTheme.typography.body1Medium.copy(
-                        color = TnTTheme.colors.neutralColors.Neutral600,
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .onFocusChanged { focusState ->
-                            isFocused = focusState.isFocused
-                        }
-                        .padding(8.dp),
-                    decorationBox = { innerTextField ->
-                        if (value.isEmpty() && placeholder != null) {
-                            Text(
-                                text = placeholder,
-                                style = TnTTheme.typography.body1Medium,
-                                color = TnTTheme.colors.neutralColors.Neutral400,
-                            )
-                        }
-
-                        innerTextField()
-                    },
-                )
-            }
+                    .onFocusChanged { focusState ->
+                        isFocused = focusState.isFocused
+                    }
+                    .padding(8.dp),
+                decorationBox = { innerTextField ->
+                    if (value.isEmpty() && placeholder != null) {
+                        Text(
+                            text = placeholder,
+                            style = TnTTheme.typography.body1Medium,
+                            color = TnTTheme.colors.neutralColors.Neutral400,
+                        )
+                    }
+                    innerTextField()
+                },
+            )
 
             Box(
                 modifier = Modifier
                     .wrapContentSize(Alignment.Center)
-                    .align(Alignment.CenterVertically),
-            ) {
-                Column(
-                    modifier = Modifier.padding(vertical = 4.dp),
-                ) {
-                    trailingComponent()
-                }
-            }
+                    .align(Alignment.CenterVertically)
+                    .padding(vertical = 4.dp),
+                content = trailingComponent,
+            )
         }
 
         HorizontalDivider(
@@ -128,9 +117,9 @@ fun TnTLabeledTextField(
     maxLength: Int = 15,
     isSingleLine: Boolean = false,
     showWarning: Boolean = false,
-    optional: Boolean = false,
+    isRequired: Boolean = false,
     warningMessage: String? = null,
-    trailingComponent: @Composable () -> Unit = {},
+    trailingComponent: @Composable BoxScope.() -> Unit = {},
 ) {
     val counterColor = when (showWarning) {
         true -> TnTTheme.colors.mainColors.Red500
@@ -150,7 +139,7 @@ fun TnTLabeledTextField(
                 style = TnTTheme.typography.body1Bold,
                 color = TnTTheme.colors.neutralColors.Neutral900,
             )
-            if (!optional) {
+            if (isRequired) {
                 Text(
                     text = "*",
                     style = TnTTheme.typography.body1Bold,
@@ -190,7 +179,7 @@ fun TnTOutlinedTextField(
 ) {
     var isFocused by remember { mutableStateOf(false) }
 
-    val borderWidth = if (!isError && !isFocused) 1.dp else 2.dp
+    val borderWidth = if (isError || isFocused) 2.dp else 1.dp
 
     val borderColor = when {
         isError -> TnTTheme.colors.mainColors.Red500
@@ -200,36 +189,33 @@ fun TnTOutlinedTextField(
 
     val counterColor = when (isError) {
         true -> TnTTheme.colors.mainColors.Red500
-        false -> TnTTheme.colors.neutralColors.Neutral400
+        false -> TnTTheme.colors.neutralColors.Neutral300
     }
 
-    BasicTextField(
-        value = value,
-        onValueChange = onValueChange,
-        modifier = modifier
-            .fillMaxWidth()
-            .onFocusChanged { focusState ->
-                isFocused = focusState.isFocused
-            }
-            .border(
-                width = borderWidth,
-                color = borderColor,
-                shape = RoundedCornerShape(8.dp),
+    Column(modifier = modifier.fillMaxWidth()) {
+        BasicTextField(
+            value = value,
+            onValueChange = onValueChange,
+            modifier = Modifier
+                .fillMaxWidth()
+                .onFocusChanged { focusState ->
+                    isFocused = focusState.isFocused
+                }
+                .border(
+                    width = borderWidth,
+                    color = borderColor,
+                    shape = RoundedCornerShape(8.dp),
+                )
+                .defaultMinSize(minHeight = 128.dp),
+            cursorBrush = SolidColor(TnTTheme.colors.neutralColors.Neutral900),
+            textStyle = TnTTheme.typography.body1Medium.copy(
+                color = TnTTheme.colors.neutralColors.Neutral800,
             ),
-        cursorBrush = SolidColor(TnTTheme.colors.neutralColors.Neutral900),
-        textStyle = TnTTheme.typography.body1Medium.copy(
-            color = TnTTheme.colors.neutralColors.Neutral800,
-        ),
-        decorationBox = { innerTextField ->
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-            ) {
+            decorationBox = { innerTextField ->
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .defaultMinSize(minHeight = 86.dp),
+                        .padding(horizontal = 16.dp, vertical = 12.dp),
                 ) {
                     if (value.isEmpty() && placeholder != null) {
                         Text(
@@ -240,17 +226,17 @@ fun TnTOutlinedTextField(
                     }
                     innerTextField()
                 }
-                Text(
-                    text = "${value.length}/$maxLength",
-                    style = TnTTheme.typography.label2Medium,
-                    color = counterColor,
-                    modifier = Modifier
-                        .align(Alignment.End)
-                        .padding(top = 4.dp),
-                )
-            }
-        },
-    )
+            },
+        )
+        Text(
+            text = "${value.length}/$maxLength",
+            style = TnTTheme.typography.label2Medium,
+            color = counterColor,
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .align(Alignment.End),
+        )
+    }
 }
 
 @Preview(showBackground = true, heightDp = 100)
@@ -302,7 +288,7 @@ private fun TnTLabeledTextFieldPreview() {
             maxLength = maxLength,
             showWarning = warningState,
             isSingleLine = true,
-            optional = false,
+            isRequired = false,
             warningMessage = "${maxLength}자 이내로 입력해주세요",
             modifier = Modifier
                 .fillMaxWidth()
