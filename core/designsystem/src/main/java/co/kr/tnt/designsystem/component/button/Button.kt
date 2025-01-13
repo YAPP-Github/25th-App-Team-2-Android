@@ -41,7 +41,7 @@ fun TnTTextButton(
         shape = RoundedCornerShape(size.cornerRadius),
         border = BorderStroke(
             width = type.stroke(enabled),
-            color = type.borderColor(enabled)
+            color = type.borderColor(enabled),
         ),
         contentPadding = size.contentPadding,
         modifier = modifier
@@ -72,7 +72,7 @@ fun TnTIconButton(
         shape = RoundedCornerShape(size.cornerRadius),
         border = BorderStroke(
             width = type.stroke(enabled),
-            color = type.borderColor(enabled)
+            color = type.borderColor(enabled),
         ),
         contentPadding = size.contentPadding,
         modifier = modifier

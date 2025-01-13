@@ -62,5 +62,5 @@ enum class ButtonType(
                 disabledContentColor = TnTTheme.colors.neutralColors.Neutral300,
             )
         },
-    )
+    ),
 }

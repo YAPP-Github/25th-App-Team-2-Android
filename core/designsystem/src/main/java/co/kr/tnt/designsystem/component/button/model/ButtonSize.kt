@@ -36,7 +36,8 @@ enum class ButtonSize(
         height = 24.dp,
         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 3.dp),
         cornerRadius = 6.dp,
-    );
+    ),
+    ;
 
     @Composable
     fun textStyle(): TextStyle {
