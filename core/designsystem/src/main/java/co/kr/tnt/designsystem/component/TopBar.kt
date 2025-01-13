@@ -1,20 +1,19 @@
 package co.kr.tnt.designsystem.component
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -25,47 +24,39 @@ import androidx.compose.ui.unit.dp
 import co.kr.tnt.core.designsystem.R
 import co.kr.tnt.designsystem.theme.TnTTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TnTTopBar(
     title: String = "",
     onBackClick: () -> Unit = {},
     modifier: Modifier = Modifier,
-    trailingComponent: @Composable () -> Unit = {},
+    trailingComponent: @Composable RowScope.() -> Unit = {},
 ) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-            .fillMaxWidth()
-            .height(60.dp)
-            .padding(start = 16.dp, top = 20.dp, end = 16.dp, bottom = 12.dp),
-    ) {
-        IconButton(
-            onClick = onBackClick,
-            modifier = Modifier
-                .size(32.dp)
-                .align(Alignment.CenterStart),
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_arrow_left),
-                contentDescription = "Go back",
+    CenterAlignedTopAppBar(
+        modifier = modifier,
+        title = {
+            Text(
+                text = title,
+                style = TnTTheme.typography.h4,
+                color = TnTTheme.colors.neutralColors.Neutral900,
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
             )
-        }
-
-        Text(
-            text = title,
-            style = TnTTheme.typography.h4,
-            color = TnTTheme.colors.neutralColors.Neutral900,
-            textAlign = TextAlign.Center,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
-
-        Row(
-            modifier = Modifier.align(Alignment.CenterEnd),
-        ) {
-            trailingComponent()
-        }
-    }
+        },
+        actions = trailingComponent,
+        navigationIcon = {
+            IconButton(
+                onClick = onBackClick,
+                modifier = Modifier.size(32.dp),
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_arrow_left),
+                    contentDescription = "Go back",
+                )
+            }
+        },
+    )
 }
 
 @Preview(showBackground = true)
