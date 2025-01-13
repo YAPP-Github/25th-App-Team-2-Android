@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -42,7 +43,7 @@ fun TnTTextField(
     val lineColor = when {
         showWarning -> TnTTheme.colors.mainColors.Red500
         isFocused -> TnTTheme.colors.neutralColors.Neutral600
-        else -> TnTTheme.colors.neutralColors.Neutral300
+        else -> TnTTheme.colors.neutralColors.Neutral200
     }
 
     Column(
@@ -69,18 +70,17 @@ fun TnTTextField(
                         .onFocusChanged { focusState ->
                             isFocused = focusState.isFocused
                         }
-                        .padding(vertical = 8.dp),
+                        .padding(8.dp),
                     decorationBox = { innerTextField ->
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            if (value.isEmpty() && placeholder != null) {
-                                Text(
-                                    text = placeholder,
-                                    style = TnTTheme.typography.body1Medium,
-                                    color = TnTTheme.colors.neutralColors.Neutral400,
-                                )
-                            }
-                            innerTextField()
+                        if (value.isEmpty() && placeholder != null) {
+                            Text(
+                                text = placeholder,
+                                style = TnTTheme.typography.body1Medium,
+                                color = TnTTheme.colors.neutralColors.Neutral400,
+                            )
                         }
+
+                        innerTextField()
                     },
                 )
             }
@@ -141,20 +141,19 @@ fun TnTLabeledTextField(
                 .padding(bottom = 8.dp, end = 4.dp)
                 .fillMaxWidth(),
         ) {
-            Row {
+            Text(
+                text = title,
+                style = TnTTheme.typography.body1Bold,
+                color = TnTTheme.colors.neutralColors.Neutral900,
+            )
+            if (!optional) {
                 Text(
-                    text = title,
+                    text = "*",
                     style = TnTTheme.typography.body1Bold,
-                    color = TnTTheme.colors.neutralColors.Neutral900,
+                    color = TnTTheme.colors.mainColors.Red500,
                 )
-                if (!optional) {
-                    Text(
-                        text = "*",
-                        style = TnTTheme.typography.body1Bold,
-                        color = TnTTheme.colors.mainColors.Red500,
-                    )
-                }
             }
+            Spacer(Modifier.weight(1f))
 
             Text(
                 text = "${value.length}/$maxLength",
