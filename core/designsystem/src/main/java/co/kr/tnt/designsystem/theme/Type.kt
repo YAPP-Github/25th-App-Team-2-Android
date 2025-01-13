@@ -25,7 +25,7 @@ internal val Typography = TnTTypography(
     h1 = PretendardStyle.copy(
         fontWeight = FontWeight.Bold,
         fontSize = 28.sp,
-        lineHeight = (28 * 1.5).sp,
+        lineHeight = (28 * 1.4).sp,
         letterSpacing = (28 * -0.02).sp,
     ),
     h2 = PretendardStyle.copy(
@@ -46,47 +46,59 @@ internal val Typography = TnTTypography(
         lineHeight = (18 * 1.5).sp,
         letterSpacing = (18 * -0.02).sp,
     ),
-    body1Normal = PretendardStyle.copy(
+    body1Bold = PretendardStyle.copy(
         fontWeight = FontWeight.Bold,
-        fontSize = 28.sp,
-        lineHeight = (28 * 1.5).sp,
-        letterSpacing = (28 * -0.02).sp,
+        fontSize = 16.sp,
+        lineHeight = (16 * 1.5).sp,
+        letterSpacing = (16 * -0.02).sp,
     ),
-    body1Reading = PretendardStyle.copy(
-        fontWeight = FontWeight.Bold,
+    body1Medium = PretendardStyle.copy(
+        fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
         lineHeight = (16 * 1.6).sp,
         letterSpacing = (16 * -0.02).sp,
     ),
-    body2Normal = PretendardStyle.copy(
+    body1SemiBold = PretendardStyle.copy(
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp,
+        lineHeight = (16 * 1.5).sp,
+        letterSpacing = (16 * -0.02).sp,
+    ),
+    body2Bold = PretendardStyle.copy(
+        fontWeight = FontWeight.Bold,
+        fontSize = 15.sp,
+        lineHeight = (15 * 1.5).sp,
+        letterSpacing = (15 * -0.02).sp,
+    ),
+    body2Medium = PretendardStyle.copy(
         fontWeight = FontWeight.Medium,
         fontSize = 15.sp,
         lineHeight = (15 * 1.5).sp,
         letterSpacing = (15 * -0.02).sp,
     ),
-    body2Reading = PretendardStyle.copy(
-        fontWeight = FontWeight.Medium,
-        fontSize = 15.sp,
-        lineHeight = (15 * 1.6).sp,
-        letterSpacing = (15 * -0.02).sp,
-    ),
-    label1Normal = PretendardStyle.copy(
+    label1Bold = PretendardStyle.copy(
         fontWeight = FontWeight.Bold,
         fontSize = 13.sp,
         lineHeight = (13 * 1.3).sp,
         letterSpacing = (13 * -0.02).sp,
     ),
-    label1Reading = PretendardStyle.copy(
+    label1Medium = PretendardStyle.copy(
         fontWeight = FontWeight.Medium,
         fontSize = 13.sp,
         lineHeight = (13 * 1.5).sp,
         letterSpacing = (13 * -0.02).sp,
     ),
-    caption1 = PretendardStyle.copy(
+    label2Medium = PretendardStyle.copy(
         fontWeight = FontWeight.Medium,
         fontSize = 12.sp,
-        lineHeight = (12 * 1.3).sp,
+        lineHeight = (12 * 1.5).sp,
         letterSpacing = (12 * -0.02).sp,
+    ),
+    caption1 = PretendardStyle.copy(
+        fontWeight = FontWeight.Medium,
+        fontSize = 11.sp,
+        lineHeight = (11 * 1.3).sp,
+        letterSpacing = (11 * -0.02).sp,
     ),
 )
 
@@ -96,12 +108,14 @@ data class TnTTypography(
     val h2: TextStyle,
     val h3: TextStyle,
     val h4: TextStyle,
-    val body1Normal: TextStyle,
-    val body1Reading: TextStyle,
-    val body2Normal: TextStyle,
-    val body2Reading: TextStyle,
-    val label1Normal: TextStyle,
-    val label1Reading: TextStyle,
+    val body1Bold: TextStyle,
+    val body1Medium: TextStyle,
+    val body1SemiBold: TextStyle,
+    val body2Bold: TextStyle,
+    val body2Medium: TextStyle,
+    val label1Bold: TextStyle,
+    val label1Medium: TextStyle,
+    val label2Medium: TextStyle,
     val caption1: TextStyle,
 )
 
@@ -111,12 +125,14 @@ val LocalTypography = staticCompositionLocalOf {
         h2 = PretendardStyle,
         h3 = PretendardStyle,
         h4 = PretendardStyle,
-        body1Normal = PretendardStyle,
-        body1Reading = PretendardStyle,
-        body2Normal = PretendardStyle,
-        body2Reading = PretendardStyle,
-        label1Normal = PretendardStyle,
-        label1Reading = PretendardStyle,
+        body1Bold = PretendardStyle,
+        body1Medium = PretendardStyle,
+        body1SemiBold = PretendardStyle,
+        body2Bold = PretendardStyle,
+        body2Medium = PretendardStyle,
+        label1Bold = PretendardStyle,
+        label1Medium = PretendardStyle,
+        label2Medium = PretendardStyle,
         caption1 = PretendardStyle,
     )
 }
