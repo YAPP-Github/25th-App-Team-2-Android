@@ -177,7 +177,7 @@ fun TnTLabeledTextField(
 
 @Preview(showBackground = true, heightDp = 100)
 @Composable
-fun TnTTextFieldPreview() {
+private fun TnTTextFieldPreview() {
     TnTTheme {
         val maxLength = 15
         var text by remember { mutableStateOf("") }
@@ -208,7 +208,7 @@ fun TnTTextFieldPreview() {
 
 @Preview(showBackground = true, heightDp = 120)
 @Composable
-fun TnTLabeledTextFieldPreview() {
+private fun TnTLabeledTextFieldPreview() {
     TnTTheme {
         val maxLength = 15
         var text by remember { mutableStateOf("") }

@@ -148,7 +148,7 @@ fun TnTTnTTextButtonPreview() {
 
 @Preview(showBackground = true, widthDp = 150, heightDp = 100)
 @Composable
-fun TnTOutLinedButtonPreview() {
+private fun TnTOutLinedButtonPreview() {
     TnTTheme {
         TnTTextButton(
             size = ButtonSize.Medium,
@@ -163,7 +163,7 @@ fun TnTOutLinedButtonPreview() {
 
 @Preview(showBackground = true, widthDp = 150, heightDp = 100)
 @Composable
-fun TnTIconButtonPreview() {
+private fun TnTIconButtonPreview() {
     TnTTheme {
         TnTIconButton(
             size = ButtonSize.Medium,
@@ -184,7 +184,7 @@ fun TnTIconButtonPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun TnTBottomButtonPreview() {
+private fun TnTBottomButtonPreview() {
     TnTTheme {
         TnTBottomButton(
             text = "text",

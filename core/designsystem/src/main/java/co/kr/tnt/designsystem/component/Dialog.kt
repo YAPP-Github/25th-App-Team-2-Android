@@ -93,7 +93,7 @@ fun TnTPopupDialog(
 
 @Preview
 @Composable
-fun TnTPopupDialogPreview() {
+private fun TnTPopupDialogPreview() {
     TnTTheme {
         TnTPopupDialog(
             title = "사진을 받으려면 동의가 필요해요\n동의를 받으세요",

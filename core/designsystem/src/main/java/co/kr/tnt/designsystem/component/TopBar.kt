@@ -68,10 +68,9 @@ fun TnTTopBar(
     }
 }
 
-// back button
 @Preview(showBackground = true)
 @Composable
-fun TnTTopBarPreview1() {
+private fun TnTTopBarOnlyBackButtonPreview() {
     TnTTheme {
         TnTTopBar(
             modifier = Modifier.fillMaxWidth(),
@@ -80,10 +79,9 @@ fun TnTTopBarPreview1() {
     }
 }
 
-// back button + title
 @Preview(showBackground = true)
 @Composable
-fun TnTTopBarPreview2() {
+private fun TnTTopBarBackButtonWithTitlePreview() {
     TnTTheme {
         TnTTopBar(
             modifier = Modifier.fillMaxWidth(),
@@ -93,10 +91,9 @@ fun TnTTopBarPreview2() {
     }
 }
 
-// back button + title + rightComponent
 @Preview(showBackground = true)
 @Composable
-fun TnTTopBarPreview3() {
+private fun TnTTopBarWithAllComponentsPreview() {
     TnTTheme {
         TnTTopBar(
             modifier = Modifier.fillMaxWidth(),
