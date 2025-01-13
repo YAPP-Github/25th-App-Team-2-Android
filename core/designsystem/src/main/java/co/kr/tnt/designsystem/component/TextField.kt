@@ -23,8 +23,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.tnt.designsystem.component.button.TnTTextButton
+import co.kr.tnt.designsystem.component.button.model.ButtonSize
 import co.kr.tnt.designsystem.theme.TnTTheme
-import co.kr.tnt.designsystem.util.ButtonSize
 
 @Composable
 fun TnTTextField(
@@ -222,7 +222,7 @@ fun TnTLabeledTextFieldPreview() {
             onValueChange = { text = it },
             placeholder = "내용을 입력해주세요",
             maxLength = maxLength,
-            showWarning = true,
+            showWarning = warningState,
             isSingleLine = true,
             optional = false,
             warningMessage = "${maxLength}자 이내로 입력해주세요",

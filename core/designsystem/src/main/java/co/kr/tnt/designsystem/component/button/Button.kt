@@ -23,11 +23,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.tnt.core.designsystem.R
+import co.kr.tnt.designsystem.component.button.model.ButtonSize
+import co.kr.tnt.designsystem.component.button.model.ButtonType
+import co.kr.tnt.designsystem.component.button.model.IconPosition
 import co.kr.tnt.designsystem.theme.TnTTheme
-import co.kr.tnt.designsystem.util.ButtonSize
-import co.kr.tnt.designsystem.util.ButtonType
-import co.kr.tnt.designsystem.util.IconPosition
-import co.kr.tnt.designsystem.util.getButtonConfig
 
 @Composable
 fun TnTTextButton(
@@ -38,22 +37,23 @@ fun TnTTextButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val config = getButtonConfig(size, type, enabled)
-
     Button(
         onClick = onClick,
         enabled = enabled,
-        colors = config.colors,
-        shape = RoundedCornerShape(config.cornerRadius),
-        border = BorderStroke(width = config.stroke, color = config.borderColor),
-        contentPadding = config.contentPadding,
+        colors = type.colors(),
+        shape = RoundedCornerShape(size.cornerRadius),
+        border = BorderStroke(
+            width = type.stroke(enabled),
+            color = type.borderColor(enabled)
+        ),
+        contentPadding = size.contentPadding,
         modifier = modifier
-            .height(config.height)
+            .height(size.height)
             .defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
     ) {
         Text(
             text = text,
-            style = config.textStyle,
+            style = size.textStyle(),
         )
     }
 }
@@ -68,17 +68,18 @@ fun TnTIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val config = getButtonConfig(size, type, enabled)
-
     Button(
         onClick = onClick,
         enabled = enabled,
-        colors = config.colors,
-        shape = RoundedCornerShape(config.cornerRadius),
-        border = BorderStroke(width = config.stroke, color = config.borderColor),
-        contentPadding = config.contentPadding,
+        colors = type.colors(),
+        shape = RoundedCornerShape(size.cornerRadius),
+        border = BorderStroke(
+            width = type.stroke(enabled),
+            color = type.borderColor(enabled)
+        ),
+        contentPadding = size.contentPadding,
         modifier = modifier
-            .height(config.height)
+            .height(size.height)
             .defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
     ) {
         when (iconPosition) {
@@ -86,7 +87,7 @@ fun TnTIconButton(
                 iconPosition.icon()
                 Text(
                     text = text,
-                    style = config.textStyle,
+                    style = size.textStyle(),
                     modifier = Modifier.padding(start = 4.dp),
                 )
             }
@@ -94,7 +95,7 @@ fun TnTIconButton(
             is IconPosition.Trailing -> {
                 Text(
                     text = text,
-                    style = config.textStyle,
+                    style = size.textStyle(),
                     modifier = Modifier.padding(end = 4.dp),
                 )
                 iconPosition.icon()
