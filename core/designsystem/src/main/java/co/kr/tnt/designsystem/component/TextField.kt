@@ -31,7 +31,7 @@ fun TnTTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: String,
+    placeholder: String? = null,
     isSingleLine: Boolean = false,
     showWarning: Boolean = false,
     warningMessage: String? = null,
@@ -58,14 +58,6 @@ fun TnTTextField(
                     .weight(1f)
                     .padding(end = 8.dp),
             ) {
-                if (value.isEmpty()) {
-                    Text(
-                        text = placeholder,
-                        style = TnTTheme.typography.body1Medium,
-                        color = TnTTheme.colors.neutralColors.Neutral400,
-                    )
-                }
-
                 BasicTextField(
                     value = value,
                     onValueChange = onValueChange,
@@ -79,7 +71,16 @@ fun TnTTextField(
                         }
                         .padding(vertical = 8.dp),
                     decorationBox = { innerTextField ->
-                        innerTextField()
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            if (value.isEmpty() && placeholder != null) {
+                                Text(
+                                    text = placeholder,
+                                    style = TnTTheme.typography.body1Medium,
+                                    color = TnTTheme.colors.neutralColors.Neutral400,
+                                )
+                            }
+                            innerTextField()
+                        }
                     },
                 )
             }
@@ -119,7 +120,7 @@ fun TnTLabeledTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: String,
+    placeholder: String? = null,
     maxLength: Int = 15,
     isSingleLine: Boolean = false,
     showWarning: Boolean = false,
