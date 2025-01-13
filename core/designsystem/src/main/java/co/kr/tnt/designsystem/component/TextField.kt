@@ -67,7 +67,7 @@ fun TnTTextField(
                     singleLine = isSingleLine,
                     cursorBrush = SolidColor(TnTTheme.colors.neutralColors.Neutral900),
                     textStyle = TnTTheme.typography.body1Medium.copy(
-                        color = TnTTheme.colors.neutralColors.Neutral600
+                        color = TnTTheme.colors.neutralColors.Neutral600,
                     ),
                     modifier = Modifier
                         .fillMaxWidth()
@@ -214,28 +214,28 @@ fun TnTOutlinedTextField(
             .border(
                 width = borderWidth,
                 color = borderColor,
-                shape = RoundedCornerShape(8.dp)
+                shape = RoundedCornerShape(8.dp),
             ),
         cursorBrush = SolidColor(TnTTheme.colors.neutralColors.Neutral900),
         textStyle = TnTTheme.typography.body1Medium.copy(
-            color = TnTTheme.colors.neutralColors.Neutral800
+            color = TnTTheme.colors.neutralColors.Neutral800,
         ),
         decorationBox = { innerTextField ->
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp)
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .defaultMinSize(minHeight = 86.dp)
+                        .defaultMinSize(minHeight = 86.dp),
                 ) {
                     if (value.isEmpty() && placeholder != null) {
                         Text(
                             text = placeholder,
                             style = TnTTheme.typography.body1Medium,
-                            color = TnTTheme.colors.neutralColors.Neutral400
+                            color = TnTTheme.colors.neutralColors.Neutral400,
                         )
                     }
                     innerTextField()
@@ -246,10 +246,10 @@ fun TnTOutlinedTextField(
                     color = counterColor,
                     modifier = Modifier
                         .align(Alignment.End)
-                        .padding(top = 4.dp)
+                        .padding(top = 4.dp),
                 )
             }
-        }
+        },
     )
 }
 
