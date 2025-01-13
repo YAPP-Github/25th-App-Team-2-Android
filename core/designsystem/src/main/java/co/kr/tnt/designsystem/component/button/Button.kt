@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import co.kr.tnt.core.designsystem.R
 import co.kr.tnt.designsystem.component.button.model.ButtonSize
@@ -46,7 +47,8 @@ fun TnTTextButton(
         contentPadding = size.contentPadding,
         modifier = modifier
             .height(size.height)
-            .defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
+            // Small, XSmall 버튼을 위해 Button minWidth 설정
+            .defaultMinSize(minWidth = Dp.Hairline),
     ) {
         Text(
             text = text,
@@ -77,7 +79,8 @@ fun TnTIconButton(
         contentPadding = size.contentPadding,
         modifier = modifier
             .height(size.height)
-            .defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
+            // Small, XSmall 버튼을 위해 Button minWidth 설정
+            .defaultMinSize(minWidth = Dp.Hairline),
     ) {
         when (iconPosition) {
             is IconPosition.Leading -> {
