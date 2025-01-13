@@ -30,7 +30,7 @@ fun TnTTopBar(
     title: String = "",
     onBackClick: () -> Unit = {},
     modifier: Modifier = Modifier,
-    rightComponent: @Composable () -> Unit = {},
+    trailingComponent: @Composable () -> Unit = {},
 ) {
     Box(
         contentAlignment = Alignment.Center,
@@ -63,7 +63,7 @@ fun TnTTopBar(
         Row(
             modifier = Modifier.align(Alignment.CenterEnd),
         ) {
-            rightComponent()
+            trailingComponent()
         }
     }
 }
@@ -99,7 +99,7 @@ private fun TnTTopBarWithAllComponentsPreview() {
             modifier = Modifier.fillMaxWidth(),
             title = "제목",
             onBackClick = { },
-            rightComponent = {
+            trailingComponent = {
                 Row(
                     horizontalArrangement = Arrangement.End,
                 ) {

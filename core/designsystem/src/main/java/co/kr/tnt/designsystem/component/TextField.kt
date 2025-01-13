@@ -35,7 +35,7 @@ fun TnTTextField(
     isSingleLine: Boolean = false,
     showWarning: Boolean = false,
     warningMessage: String? = null,
-    rightComponent: @Composable () -> Unit = {},
+    trailingComponent: @Composable () -> Unit = {},
 ) {
     var isFocused by remember { mutableStateOf(false) }
 
@@ -92,7 +92,7 @@ fun TnTTextField(
                 Column(
                     modifier = Modifier.padding(vertical = 4.dp),
                 ) {
-                    rightComponent()
+                    trailingComponent()
                 }
             }
         }
@@ -125,7 +125,7 @@ fun TnTLabeledTextField(
     showWarning: Boolean = false,
     optional: Boolean = false,
     warningMessage: String? = null,
-    rightComponent: @Composable () -> Unit = {},
+    trailingComponent: @Composable () -> Unit = {},
 ) {
     val counterColor = when (showWarning) {
         true -> TnTTheme.colors.mainColors.Red500
@@ -137,7 +137,7 @@ fun TnTLabeledTextField(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .padding(bottom = 7.dp, end = 4.dp)
+                .padding(bottom = 8.dp, end = 4.dp)
                 .fillMaxWidth(),
         ) {
             Row {
@@ -169,7 +169,7 @@ fun TnTLabeledTextField(
             isSingleLine = isSingleLine,
             showWarning = showWarning,
             warningMessage = warningMessage,
-            rightComponent = rightComponent,
+            trailingComponent = trailingComponent,
             modifier = Modifier.fillMaxWidth(),
         )
     }
@@ -195,7 +195,7 @@ private fun TnTTextFieldPreview() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp),
-            rightComponent = {
+            trailingComponent = {
                 TnTTextButton(
                     text = "텍스트",
                     size = ButtonSize.Small,
@@ -229,7 +229,7 @@ private fun TnTLabeledTextFieldPreview() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp),
-            rightComponent = {
+            trailingComponent = {
                 TnTTextButton(
                     text = "텍스트",
                     size = ButtonSize.Small,
