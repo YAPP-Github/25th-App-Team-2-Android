@@ -29,13 +29,13 @@ import co.kr.tnt.designsystem.theme.TnTTheme
 @Composable
 fun TnTTextField(
     value: String,
-    placeholder: String,
     onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    placeholder: String,
     isSingleLine: Boolean = false,
     showWarning: Boolean = false,
     warningMessage: String? = null,
     rightComponent: @Composable () -> Unit = {},
-    modifier: Modifier = Modifier,
 ) {
     var isFocused by remember { mutableStateOf(false) }
 
@@ -117,15 +117,15 @@ fun TnTTextField(
 fun TnTLabeledTextField(
     title: String,
     value: String,
-    placeholder: String,
     onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    placeholder: String,
     maxLength: Int = 15,
     isSingleLine: Boolean = false,
     showWarning: Boolean = false,
     optional: Boolean = false,
     warningMessage: String? = null,
     rightComponent: @Composable () -> Unit = {},
-    modifier: Modifier = Modifier,
 ) {
     val counterColor = when (showWarning) {
         true -> TnTTheme.colors.mainColors.Red500

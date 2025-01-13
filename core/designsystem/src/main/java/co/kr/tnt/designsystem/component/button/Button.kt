@@ -30,12 +30,12 @@ import co.kr.tnt.designsystem.theme.TnTTheme
 
 @Composable
 fun TnTTextButton(
+    text: String,
+    modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
     type: ButtonType = ButtonType.Primary,
-    text: String,
     enabled: Boolean = true,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     Button(
         onClick = onClick,
@@ -60,13 +60,13 @@ fun TnTTextButton(
 
 @Composable
 fun TnTIconButton(
+    text: String,
+    modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
     type: ButtonType = ButtonType.GrayOutline,
     iconPosition: IconPosition,
-    text: String,
     enabled: Boolean = true,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     Button(
         onClick = onClick,
@@ -107,9 +107,9 @@ fun TnTIconButton(
 @Composable
 fun TnTBottomButton(
     text: String,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     Button(
         onClick = onClick,

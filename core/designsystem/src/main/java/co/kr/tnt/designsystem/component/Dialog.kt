@@ -28,10 +28,10 @@ fun TnTPopupDialog(
     content: String,
     leftButtonText: String,
     rightButtonText: String,
+    modifier: Modifier = Modifier,
     onLeftButtonClick: () -> Unit,
     onRightButtonClick: () -> Unit,
     onDismiss: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     Dialog(
         onDismissRequest = { onDismiss() },

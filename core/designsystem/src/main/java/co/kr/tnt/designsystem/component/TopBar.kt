@@ -27,9 +27,9 @@ import co.kr.tnt.designsystem.theme.TnTTheme
 
 @Composable
 fun TnTTopBar(
-    modifier: Modifier = Modifier,
     title: String = "",
     onBackClick: () -> Unit = {},
+    modifier: Modifier = Modifier,
     rightComponent: @Composable () -> Unit = {},
 ) {
     Box(
