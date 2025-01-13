@@ -1,4 +1,4 @@
-package co.kr.tnt.designsystem.component
+package co.kr.tnt.designsystem.component.button
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
