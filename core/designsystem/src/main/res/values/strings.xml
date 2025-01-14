@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  Sign Up  -->
+    <string name="signup_select_role_title">안녕하세요!\n어떤 회원으로 이용하시겠어요?</string>
+    <string name="signup_select_role_subtitle">트레이너와 트레이니 중 선택해주세요.</string>
+
+
+</resources>
