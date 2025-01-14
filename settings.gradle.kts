@@ -35,4 +35,5 @@ include(
 include(
     ":feature:main",
     ":feature:home",
+    ":feature:signup",
 )
