@@ -37,6 +37,12 @@ fun RoleSelectionScreen(
 
     var selectedRole by remember { mutableStateOf(trainerText) }
 
+    val roleImage = if (selectedRole == trainerText) {
+        painterResource(R.drawable.img_select_role_trainer)
+    } else {
+        painterResource(R.drawable.img_select_role_trainee)
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -63,7 +69,7 @@ fun RoleSelectionScreen(
         Spacer(modifier = Modifier.weight(1f))
 
         Image(
-            painter = painterResource(R.drawable.img_select_role),
+            painter = roleImage,
             contentDescription = null,
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
