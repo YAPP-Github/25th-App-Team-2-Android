@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,7 +34,9 @@ fun RoleSelectionScreen(
     var selectedRole by remember { mutableStateOf("트레이너") }
 
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .safeContentPadding(),
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
         Column(modifier = Modifier.padding(start = 24.dp, top = 60.dp)) {
@@ -60,7 +63,7 @@ fun RoleSelectionScreen(
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(1.3f))
 
         // TODO 선택한 버튼 정보 저장
         Row(
@@ -86,7 +89,7 @@ fun RoleSelectionScreen(
             )
         }
 
-        Spacer(modifier = Modifier.padding(top = 54.dp))
+        Spacer(modifier = Modifier.weight(1.3f))
 
         // TODO 클릭 시 이름 입력 화면으로 이동
         TnTBottomButton(
