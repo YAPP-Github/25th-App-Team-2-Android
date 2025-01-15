@@ -149,7 +149,7 @@ fun TnTLabeledTextField(
             Spacer(Modifier.weight(1f))
 
             Text(
-                text = "${value.length}/$maxLength",
+                text = "${value.length}/${maxLength}자",
                 style = TnTTheme.typography.label1Medium,
                 color = counterColor,
             )
