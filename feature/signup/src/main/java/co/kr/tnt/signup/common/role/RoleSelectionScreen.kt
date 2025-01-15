@@ -68,7 +68,7 @@ fun RoleSelectionScreen(
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
 
-        Spacer(modifier = Modifier.weight(1.3f))
+        Spacer(modifier = Modifier.weight(1.2f))
 
         // TODO 선택한 버튼 정보 저장
         Row(
@@ -94,7 +94,7 @@ fun RoleSelectionScreen(
             )
         }
 
-        Spacer(modifier = Modifier.weight(1.3f))
+        Spacer(modifier = Modifier.weight(1.5f))
 
         // TODO 클릭 시 이름 입력 화면으로 이동
         TnTBottomButton(
