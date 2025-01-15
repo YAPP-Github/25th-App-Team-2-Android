@@ -33,7 +33,7 @@ fun RoleSelectionScreen(
     modifier: Modifier = Modifier,
 ) {
     val trainerText = stringResource(R.string.trainer)
-    val traineeText =stringResource(R.string.trainee)
+    val traineeText = stringResource(R.string.trainee)
 
     var selectedRole by remember { mutableStateOf(trainerText) }
 
