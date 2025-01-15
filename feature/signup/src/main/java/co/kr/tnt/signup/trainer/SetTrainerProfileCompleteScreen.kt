@@ -20,8 +20,8 @@ import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.tnt.core.designsystem.R
-import co.kr.tnt.designsystem.theme.TnTTheme
 import co.kr.tnt.designsystem.component.button.TnTBottomButton
+import co.kr.tnt.designsystem.theme.TnTTheme
 
 @Composable
 fun SetTrainerProfileCompleteScreen(
