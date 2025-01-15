@@ -1,6 +1,7 @@
 package co.kr.tnt.signup.common.role
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,6 +37,7 @@ fun RoleSelectionScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
+            .background(TnTTheme.colors.commonColors.Common0)
             .safeContentPadding(),
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
