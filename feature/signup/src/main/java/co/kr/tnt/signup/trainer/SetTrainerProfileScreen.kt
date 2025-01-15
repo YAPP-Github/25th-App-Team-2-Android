@@ -136,7 +136,7 @@ private fun SetProfileImage(
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .wrapContentSize()
             .padding(vertical = 12.dp),
