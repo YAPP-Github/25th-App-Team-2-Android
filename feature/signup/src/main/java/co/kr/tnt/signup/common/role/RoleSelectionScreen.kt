@@ -32,7 +32,10 @@ import co.kr.tnt.designsystem.theme.TnTTheme
 fun RoleSelectionScreen(
     modifier: Modifier = Modifier,
 ) {
-    var selectedRole by remember { mutableStateOf("트레이너") }
+    val trainerText = stringResource(R.string.trainer)
+    val traineeText =stringResource(R.string.trainee)
+
+    var selectedRole by remember { mutableStateOf(trainerText) }
 
     Column(
         modifier = modifier
@@ -75,19 +78,19 @@ fun RoleSelectionScreen(
                 .padding(horizontal = 20.dp),
         ) {
             TnTTextButton(
-                text = "트레이너",
+                text = trainerText,
                 modifier = Modifier.weight(1f),
                 size = ButtonSize.Large,
-                type = if (selectedRole == "트레이너") ButtonType.RedOutline else ButtonType.GrayOutline,
-                onClick = { selectedRole = "트레이너" },
+                type = if (selectedRole == trainerText) ButtonType.RedOutline else ButtonType.GrayOutline,
+                onClick = { selectedRole = trainerText },
             )
 
             TnTTextButton(
-                text = "트레이니",
+                text = traineeText,
                 modifier = Modifier.weight(1f),
                 size = ButtonSize.Large,
-                type = if (selectedRole == "트레이니") ButtonType.RedOutline else ButtonType.GrayOutline,
-                onClick = { selectedRole = "트레이니" },
+                type = if (selectedRole == traineeText) ButtonType.RedOutline else ButtonType.GrayOutline,
+                onClick = { selectedRole = traineeText },
             )
         }
 
@@ -95,7 +98,7 @@ fun RoleSelectionScreen(
 
         // TODO 클릭 시 이름 입력 화면으로 이동
         TnTBottomButton(
-            text = "다음",
+            text = stringResource(R.string.next),
             enabled = true,
             onClick = {},
         )
