@@ -23,8 +23,8 @@ fun StepProgressHeader(
     currentStep: Int,
     totalSteps: Int,
     title: String,
-    subTitle: String? = null,
     modifier: Modifier = Modifier,
+    subTitle: String? = null,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
