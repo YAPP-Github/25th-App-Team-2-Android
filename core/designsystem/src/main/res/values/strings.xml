@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--  TextField  -->
+    <string name="text_counter">%1$d/%2$d자</string>
+
     <!--  Sign Up  -->
     <string name="name">이름</string>
     <string name="next">다음</string>
