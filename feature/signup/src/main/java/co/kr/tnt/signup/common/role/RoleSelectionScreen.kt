@@ -59,13 +59,11 @@ fun RoleSelectionScreen(
                 style = TnTTheme.typography.body1Medium,
             )
         }
-        Spacer(modifier = Modifier.weight(1f))
         Image(
             painter = roleImage,
             contentDescription = null,
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
-        Spacer(modifier = Modifier.weight(1.1f))
         // TODO 선택한 버튼 정보 저장
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -88,7 +86,6 @@ fun RoleSelectionScreen(
                 onClick = { selectedRole = RoleState.Trainee },
             )
         }
-        Spacer(modifier = Modifier.weight(1.2f))
         // TODO 클릭 시 이름 입력 화면으로 이동
         TnTBottomButton(
             text = stringResource(R.string.next),

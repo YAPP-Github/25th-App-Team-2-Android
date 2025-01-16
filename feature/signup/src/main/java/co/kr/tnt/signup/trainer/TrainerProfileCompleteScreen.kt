@@ -67,9 +67,7 @@ fun TrainerProfileCompleteScreen(
         TnTBottomButton(
             text = stringResource(R.string.start),
             onClick = { },
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(top = 20.dp),
+            modifier = Modifier.align(Alignment.BottomCenter),
         )
     }
 }
