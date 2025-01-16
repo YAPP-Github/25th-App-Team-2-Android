@@ -27,18 +27,18 @@ import co.kr.tnt.designsystem.component.button.TnTTextButton
 import co.kr.tnt.designsystem.component.button.model.ButtonSize
 import co.kr.tnt.designsystem.component.button.model.ButtonType
 import co.kr.tnt.designsystem.theme.TnTTheme
-import co.kr.tnt.domain.model.Role
+import co.kr.tnt.signup.common.role.model.RoleState
 
 @Composable
 fun RoleSelectionScreen(
     modifier: Modifier = Modifier,
 ) {
-    var selectedRole by remember { mutableStateOf(Role.TRAINER) }
+    var selectedRole by remember { mutableStateOf<RoleState>(RoleState.Trainer) }
 
-    val roleImage = if (selectedRole == Role.TRAINER) {
-        painterResource(R.drawable.img_select_role_trainer)
+    val roleImage = if (selectedRole == RoleState.Trainer) {
+        painterResource(RoleState.Trainer.roleImageResId)
     } else {
-        painterResource(R.drawable.img_select_role_trainee)
+        painterResource(RoleState.Trainee.roleImageResId)
     }
 
     Column(
@@ -76,18 +76,18 @@ fun RoleSelectionScreen(
                 .padding(horizontal = 20.dp),
         ) {
             TnTTextButton(
-                text = Role.TRAINER.displayName,
+                text = RoleState.Trainer.text,
                 modifier = Modifier.weight(1f),
                 size = ButtonSize.Large,
-                type = if (selectedRole == Role.TRAINER) ButtonType.RedOutline else ButtonType.GrayOutline,
-                onClick = { selectedRole = Role.TRAINER },
+                type = if (selectedRole == RoleState.Trainer) ButtonType.RedOutline else ButtonType.GrayOutline,
+                onClick = { selectedRole = RoleState.Trainer },
             )
             TnTTextButton(
-                text = Role.TRAINEE.displayName,
+                text = RoleState.Trainee.text,
                 modifier = Modifier.weight(1f),
                 size = ButtonSize.Large,
-                type = if (selectedRole == Role.TRAINEE) ButtonType.RedOutline else ButtonType.GrayOutline,
-                onClick = { selectedRole = Role.TRAINEE },
+                type = if (selectedRole == RoleState.Trainee) ButtonType.RedOutline else ButtonType.GrayOutline,
+                onClick = { selectedRole = RoleState.Trainee },
             )
         }
         Spacer(modifier = Modifier.weight(1.2f))
