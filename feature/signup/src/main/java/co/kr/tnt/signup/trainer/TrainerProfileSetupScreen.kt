@@ -1,6 +1,5 @@
 package co.kr.tnt.signup.trainer
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,13 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,10 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,6 +27,7 @@ import co.kr.tnt.designsystem.component.TnTLabeledTextField
 import co.kr.tnt.designsystem.component.TnTTopBar
 import co.kr.tnt.designsystem.component.button.TnTBottomButton
 import co.kr.tnt.designsystem.theme.TnTTheme
+import co.kr.tnt.signup.common.component.ProfileImageSection
 
 @Composable
 fun TrainerProfileSetupScreen() {
@@ -64,7 +55,11 @@ fun TrainerProfileSetupScreen() {
                     style = TnTTheme.typography.h2,
                 )
                 Spacer(Modifier.padding(top = 48.dp))
-                SetProfileImage()
+                ProfileImageSection(
+                    modifier = Modifier.fillMaxWidth(),
+                    defaultImage = R.drawable.img_default_profile_trainer,
+                    onImageSelected = { },
+                )
                 Spacer(Modifier.padding(top = 60.dp))
                 TnTLabeledTextField(
                     title = stringResource(R.string.name),
@@ -98,42 +93,6 @@ fun TrainerProfileSetupScreen() {
  */
 private fun validateInput(input: String): String {
     return input.filter { it.isLetter() || it.isWhitespace() }
-}
-
-@Composable
-private fun SetProfileImage(
-    modifier: Modifier = Modifier,
-) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .wrapContentSize()
-            .padding(vertical = 12.dp),
-        contentAlignment = Alignment.Center,
-    ) {
-        // TODO 유저가 선택한 이미지 보여주기
-        Image(
-            painter = painterResource(id = R.drawable.img_default_profile_trainer),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(131.dp)
-                .clip(CircleShape),
-        )
-        // TODO 버튼 클릭 시 권한 확인 후 사진 선택
-        IconButton(
-            onClick = {},
-            modifier = Modifier
-                .size(28.dp)
-                .align(Alignment.BottomEnd),
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_edit),
-                contentDescription = null,
-                tint = Color.Unspecified,
-            )
-        }
-    }
 }
 
 @Preview(showBackground = true)
