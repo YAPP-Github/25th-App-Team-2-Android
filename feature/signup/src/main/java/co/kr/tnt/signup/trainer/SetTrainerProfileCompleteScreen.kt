@@ -49,28 +49,22 @@ fun SetTrainerProfileCompleteScreen(
                 textAlign = Center,
                 modifier = modifier.padding(horizontal = 24.dp),
             )
-
             Spacer(Modifier.padding(top = 10.dp))
-
             Text(
                 text = stringResource(R.string.signup_complete_trainer_subtitle),
                 color = TnTTheme.colors.neutralColors.Neutral500,
                 style = TnTTheme.typography.body1Medium,
                 textAlign = Center,
             )
-
             Spacer(Modifier.padding(top = 28.dp))
-
             // TODO 프로필 이미지 가져오기
             Image(
                 painter = painterResource(R.drawable.img_default_profile_trainer),
                 contentDescription = null,
                 modifier = Modifier.size(200.dp),
             )
-
             Spacer(Modifier.weight(0.7f))
         }
-
         // TODO 연결코드 생성 화면으로 이동
         TnTBottomButton(
             text = stringResource(R.string.start),
