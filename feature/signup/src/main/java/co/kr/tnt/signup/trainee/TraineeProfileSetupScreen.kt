@@ -32,13 +32,13 @@ import co.kr.tnt.signup.common.component.ProfileImageSection
 import co.kr.tnt.signup.trainee.component.StepProgressHeader
 
 @Composable
-fun SetTraineeProfileScreen(
+fun TraineeProfileSetupScreen(
     modifier: Modifier = Modifier,
 ) {
     // TODO 상태 관리 따로 빼기
     val maxLength = 15
     var text by remember { mutableStateOf("") }
-    val warningState by remember { derivedStateOf { text.length > maxLength } }
+    val isWarning by remember { derivedStateOf { text.length > maxLength } }
 
     Box(
         modifier = modifier
@@ -79,7 +79,7 @@ fun SetTraineeProfileScreen(
                 placeholder = stringResource(R.string.signup_set_name_placeholder),
                 maxLength = maxLength,
                 isSingleLine = true,
-                showWarning = warningState,
+                showWarning = isWarning,
                 isRequired = true,
                 warningMessage = "$maxLength" + stringResource(R.string.signup_warning_text_length),
             )
@@ -87,7 +87,7 @@ fun SetTraineeProfileScreen(
         // TODO 트레이니 기본 정보 입력 화면으로 이동
         TnTBottomButton(
             text = stringResource(R.string.next),
-            enabled = text.isNotBlank() && !warningState,
+            enabled = text.isNotBlank() && !isWarning,
             onClick = { },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -105,8 +105,8 @@ private fun validateInput(input: String): String {
 
 @Preview(showBackground = true)
 @Composable
-private fun SetTraineeProfilePreview() {
+private fun TraineeProfileSetupScreenPreview() {
     TnTTheme {
-        SetTraineeProfileScreen(modifier = Modifier.fillMaxSize())
+        TraineeProfileSetupScreen(modifier = Modifier.fillMaxSize())
     }
 }
