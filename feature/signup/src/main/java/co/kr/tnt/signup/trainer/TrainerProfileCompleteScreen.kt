@@ -24,7 +24,7 @@ import co.kr.tnt.designsystem.component.button.TnTBottomButton
 import co.kr.tnt.designsystem.theme.TnTTheme
 
 @Composable
-fun SetTrainerProfileCompleteScreen(
+fun TrainerProfileCompleteScreen(
     modifier: Modifier = Modifier,
 ) {
     // TODO 이름 불러오기
@@ -78,8 +78,8 @@ fun SetTrainerProfileCompleteScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun SetTrainerProfileCompleteScreenPreview() {
+private fun TrainerProfileCompleteScreenPreview() {
     TnTTheme {
-        SetTrainerProfileCompleteScreen()
+        TrainerProfileCompleteScreen()
     }
 }

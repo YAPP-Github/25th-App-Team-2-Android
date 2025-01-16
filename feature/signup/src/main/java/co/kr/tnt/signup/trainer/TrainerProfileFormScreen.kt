@@ -41,13 +41,13 @@ import co.kr.tnt.designsystem.component.button.TnTBottomButton
 import co.kr.tnt.designsystem.theme.TnTTheme
 
 @Composable
-fun SetTrainerProfileScreen(
+fun TrainerProfileFormScreen(
     modifier: Modifier = Modifier,
 ) {
     // TODO 상태 관리 따로 빼기
     val maxLength = 15
     var text by remember { mutableStateOf("") }
-    val warningState by remember { derivedStateOf { text.length > maxLength } }
+    val isWarning by remember { derivedStateOf { text.length > maxLength } }
 
     Box(
         modifier = modifier
@@ -85,7 +85,7 @@ fun SetTrainerProfileScreen(
                 placeholder = stringResource(R.string.signup_set_name_placeholder),
                 maxLength = maxLength,
                 isSingleLine = true,
-                showWarning = warningState,
+                showWarning = isWarning,
                 isRequired = true,
                 warningMessage = "$maxLength" + stringResource(R.string.signup_warning_text_length),
             )
@@ -93,7 +93,7 @@ fun SetTrainerProfileScreen(
         // TODO 트레이너 프로필 생성 완료 화면으로 이동
         TnTBottomButton(
             text = stringResource(R.string.next),
-            enabled = text.isNotBlank() && !warningState,
+            enabled = text.isNotBlank() && !isWarning,
             onClick = { },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -147,8 +147,8 @@ private fun SetProfileImage(
 
 @Preview(showBackground = true)
 @Composable
-private fun SetTrainerProfilePreview() {
+private fun TrainerProfileFormScreenPreview() {
     TnTTheme {
-        SetTrainerProfileScreen(modifier = Modifier.fillMaxSize())
+        TrainerProfileFormScreen(modifier = Modifier.fillMaxSize())
     }
 }
