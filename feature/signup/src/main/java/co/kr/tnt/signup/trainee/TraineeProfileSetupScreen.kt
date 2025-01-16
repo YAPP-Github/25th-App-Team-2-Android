@@ -1,17 +1,15 @@
 package co.kr.tnt.signup.trainee
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -32,67 +30,60 @@ import co.kr.tnt.signup.common.component.ProfileImageSection
 import co.kr.tnt.signup.trainee.component.StepProgressHeader
 
 @Composable
-fun TraineeProfileSetupScreen(
-    modifier: Modifier = Modifier,
-) {
+fun TraineeProfileSetupScreen() {
     // TODO 상태 관리 따로 빼기
     val maxLength = 15
     var text by remember { mutableStateOf("") }
     val isWarning by remember { derivedStateOf { text.length > maxLength } }
 
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(TnTTheme.colors.commonColors.Common0)
-            .navigationBarsPadding(),
-    ) {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .imePadding()
-                .verticalScroll(rememberScrollState()),
-        ) {
-            // TODO 버튼 클릭 시 트레이너/트레이니 선택 화면으로 이동
-            TnTTopBar(onBackClick = {})
-            StepProgressHeader(
-                currentStep = 1,
-                totalSteps = 4,
-                title = stringResource(R.string.signup_set_name_title),
-            )
-            Spacer(Modifier.padding(top = 48.dp))
-            ProfileImageSection(
-                Modifier.fillMaxWidth(),
-                defaultImage = R.drawable.img_default_profile_trainee,
-                onImageSelected = { },
-            )
-            Spacer(Modifier.padding(top = 60.dp))
-            TnTLabeledTextField(
-                title = stringResource(R.string.name),
-                value = text,
-                onValueChange = { newValue ->
-                    val filteredText = validateInput(newValue)
-                    text = filteredText
-                },
+    Scaffold(
+        // TODO 버튼 클릭 시 트레이너/트레이니 화면으로 이동
+        topBar = { TnTTopBar(onBackClick = {}) },
+        containerColor = TnTTheme.colors.commonColors.Common0,
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            Column(
                 modifier = Modifier
-                    .wrapContentHeight()
-                    .padding(horizontal = 20.dp),
-                placeholder = stringResource(R.string.signup_set_name_placeholder),
-                maxLength = maxLength,
-                isSingleLine = true,
-                showWarning = isWarning,
-                isRequired = true,
-                warningMessage = "$maxLength" + stringResource(R.string.signup_warning_text_length),
+                    .fillMaxSize()
+                    .imePadding()
+                    .verticalScroll(rememberScrollState()),
+            ) {
+                StepProgressHeader(
+                    currentStep = 1,
+                    totalSteps = 4,
+                    title = stringResource(R.string.signup_set_name_title),
+                )
+                Spacer(Modifier.padding(top = 48.dp))
+                ProfileImageSection(
+                    Modifier.fillMaxWidth(),
+                    defaultImage = R.drawable.img_default_profile_trainee,
+                    onImageSelected = { },
+                )
+                Spacer(Modifier.padding(top = 60.dp))
+                TnTLabeledTextField(
+                    title = stringResource(R.string.name),
+                    value = text,
+                    onValueChange = { newValue ->
+                        val filteredText = validateInput(newValue)
+                        text = filteredText
+                    },
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                    placeholder = stringResource(R.string.signup_set_name_placeholder),
+                    maxLength = maxLength,
+                    isSingleLine = true,
+                    showWarning = isWarning,
+                    isRequired = true,
+                    warningMessage = "$maxLength" + stringResource(R.string.signup_warning_text_length),
+                )
+            }
+            // TODO 트레이니 기본 정보 입력 화면으로 이동
+            TnTBottomButton(
+                text = stringResource(R.string.next),
+                enabled = text.isNotBlank() && !isWarning,
+                onClick = { },
+                modifier = Modifier.align(Alignment.BottomCenter),
             )
         }
-        // TODO 트레이니 기본 정보 입력 화면으로 이동
-        TnTBottomButton(
-            text = stringResource(R.string.next),
-            enabled = text.isNotBlank() && !isWarning,
-            onClick = { },
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(top = 20.dp),
-        )
     }
 }
 
@@ -107,6 +98,6 @@ private fun validateInput(input: String): String {
 @Composable
 private fun TraineeProfileSetupScreenPreview() {
     TnTTheme {
-        TraineeProfileSetupScreen(modifier = Modifier.fillMaxSize())
+        TraineeProfileSetupScreen()
     }
 }
