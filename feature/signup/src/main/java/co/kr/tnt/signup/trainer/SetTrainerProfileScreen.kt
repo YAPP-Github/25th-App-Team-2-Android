@@ -20,6 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,9 +47,7 @@ fun SetTrainerProfileScreen(
     // TODO 상태 관리 따로 빼기
     val maxLength = 15
     var text by remember { mutableStateOf("") }
-    var warningState by remember { mutableStateOf(false) }
-
-    warningState = text.length > maxLength
+    val warningState by remember { derivedStateOf { text.length > maxLength } }
 
     Box(
         modifier = modifier
@@ -64,20 +63,15 @@ fun SetTrainerProfileScreen(
         ) {
             // TODO 버튼 클릭 시 트레이너/트레이니 화면으로 이동
             TnTTopBar(onBackClick = {})
-
             Text(
                 text = stringResource(R.string.signup_set_name_title),
                 modifier = Modifier.padding(start = 24.dp),
                 color = TnTTheme.colors.neutralColors.Neutral950,
                 style = TnTTheme.typography.h2,
             )
-
             Spacer(Modifier.padding(top = 48.dp))
-
             SetProfileImage()
-
             Spacer(Modifier.padding(top = 60.dp))
-
             TnTLabeledTextField(
                 title = stringResource(R.string.name),
                 value = text,
@@ -96,11 +90,10 @@ fun SetTrainerProfileScreen(
                 warningMessage = "$maxLength" + stringResource(R.string.signup_warning_text_length),
             )
         }
-
         // TODO 트레이너 프로필 생성 완료 화면으로 이동
         TnTBottomButton(
             text = stringResource(R.string.next),
-            enabled = text.isNotEmpty() && !warningState,
+            enabled = text.isNotBlank() && !warningState,
             onClick = { },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -136,7 +129,6 @@ private fun SetProfileImage(
                 .size(131.dp)
                 .clip(CircleShape),
         )
-
         // TODO 버튼 클릭 시 권한 확인 후 사진 선택
         IconButton(
             onClick = {},
