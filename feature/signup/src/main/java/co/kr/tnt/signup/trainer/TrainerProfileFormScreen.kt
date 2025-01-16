@@ -95,9 +95,7 @@ fun TrainerProfileFormScreen(
             text = stringResource(R.string.next),
             enabled = text.isNotBlank() && !isWarning,
             onClick = { },
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(top = 20.dp),
+            modifier = Modifier.align(Alignment.BottomCenter),
         )
     }
 }
