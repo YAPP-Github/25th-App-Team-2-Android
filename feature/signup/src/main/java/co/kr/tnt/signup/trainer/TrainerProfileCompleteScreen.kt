@@ -2,12 +2,11 @@ package co.kr.tnt.signup.trainer
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
@@ -33,21 +32,21 @@ fun TrainerProfileCompleteScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(TnTTheme.colors.commonColors.Common0)
-            .navigationBarsPadding(),
+            .background(TnTTheme.colors.commonColors.Common0),
+        contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 66.dp),
         ) {
-            Spacer(Modifier.weight(0.3f))
             Text(
                 text = stringResource(R.string.signup_complete_trainer_title, name),
                 color = TnTTheme.colors.neutralColors.Neutral950,
                 style = TnTTheme.typography.h1,
                 textAlign = Center,
-                modifier = modifier.padding(horizontal = 24.dp),
+                modifier = Modifier.padding(horizontal = 24.dp),
             )
             Spacer(Modifier.padding(top = 10.dp))
             Text(
@@ -63,7 +62,6 @@ fun TrainerProfileCompleteScreen(
                 contentDescription = null,
                 modifier = Modifier.size(200.dp),
             )
-            Spacer(Modifier.weight(0.7f))
         }
         // TODO 연결코드 생성 화면으로 이동
         TnTBottomButton(

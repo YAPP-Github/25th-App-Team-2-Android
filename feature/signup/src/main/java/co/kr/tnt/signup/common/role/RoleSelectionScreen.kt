@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -44,8 +43,7 @@ fun RoleSelectionScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(TnTTheme.colors.commonColors.Common0)
-            .safeContentPadding(),
+            .background(TnTTheme.colors.commonColors.Common0),
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
         Column(modifier = Modifier.padding(start = 24.dp, top = 60.dp)) {
