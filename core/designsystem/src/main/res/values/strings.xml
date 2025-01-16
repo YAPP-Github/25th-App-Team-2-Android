@@ -10,6 +10,12 @@
     <string name="trainer">트레이너</string>
     <string name="trainee">트레이니</string>
 
+    <string name="user_birthday">생년월일</string>
+    <string name="user_height">키</string>
+    <string name="user_weight">체중</string>
+    <string name="height_unit">cm</string>
+    <string name="weight_unit">kg</string>
+
     <string name="signup_warning_text_length">자 이하로 입력해주세요</string>
 
     <string name="signup_select_role_title">안녕하세요!\n어떤 회원으로 이용하시겠어요?</string>
@@ -17,6 +23,9 @@
 
     <string name="signup_set_name_title">이름이 어떻게 되세요?</string>
     <string name="signup_set_name_placeholder">이름을 입력해주세요</string>
+
+    <string name="signup_set_basic_info_title">회원님의 기본 정보를\n입력해주세요</string>
+    <string name="signup_set_basic_info_subtitle">PT에 참고할 기본 정보예요!</string>
 
     <string name="signup_complete_trainer_title">만나서 반가워요\n%s 트레이너님!</string>
     <string name="signup_complete_trainer_subtitle">트레이니와 함께\n케미를 터뜨려보세요! 🧨</string>
