@@ -37,4 +37,7 @@
     <string name="signup_complete_trainer_title">만나서 반가워요\n%s 트레이너님!</string>
     <string name="signup_complete_trainer_subtitle">트레이니와 함께\n케미를 터뜨려보세요! 🧨</string>
 
+    <string name="signup_complete_trainee_title">만나서 반가워요\n%s 트레이니님!</string>
+    <string name="signup_complete_trainee_subtitle">트레이너와 함께\n케미를 터뜨려보세요! 🧨</string>
+
 </resources>
