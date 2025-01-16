@@ -121,10 +121,8 @@ fun TnTBottomButton(
             disabledContainerColor = TnTTheme.colors.neutralColors.Neutral300,
             disabledContentColor = TnTTheme.colors.neutralColors.Neutral50,
         ),
-        contentPadding = PaddingValues(top = 20.dp),
-        modifier = modifier
-            .fillMaxWidth()
-            .height(100.dp),
+        contentPadding = PaddingValues(vertical = 20.dp),
+        modifier = modifier.fillMaxWidth(),
     ) {
         Text(
             text = text,
