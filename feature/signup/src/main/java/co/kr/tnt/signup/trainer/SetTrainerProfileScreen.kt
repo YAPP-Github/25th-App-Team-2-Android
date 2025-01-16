@@ -127,7 +127,7 @@ fun SetTrainerProfileScreen(
 /**
  * 입력 값을 검사해 한글/영어/공백만 허용하고 특수문자는 제거
  */
-fun validateInput(input: String): String {
+private fun validateInput(input: String): String {
     return input.filter { it.isLetter() || it.isWhitespace() }
 }
 
