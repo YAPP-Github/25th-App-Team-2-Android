@@ -41,7 +41,7 @@ import co.kr.tnt.designsystem.component.button.TnTBottomButton
 import co.kr.tnt.designsystem.theme.TnTTheme
 
 @Composable
-fun TrainerProfileFormScreen(
+fun TrainerProfileSetupScreen(
     modifier: Modifier = Modifier,
 ) {
     // TODO 상태 관리 따로 빼기
@@ -145,8 +145,8 @@ private fun SetProfileImage(
 
 @Preview(showBackground = true)
 @Composable
-private fun TrainerProfileFormScreenPreview() {
+private fun TrainerProfileSetupScreenPreview() {
     TnTTheme {
-        TrainerProfileFormScreen(modifier = Modifier.fillMaxSize())
+        TrainerProfileSetupScreen(modifier = Modifier.fillMaxSize())
     }
 }
