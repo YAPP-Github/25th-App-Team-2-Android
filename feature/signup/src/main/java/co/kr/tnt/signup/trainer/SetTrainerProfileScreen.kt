@@ -1,6 +1,5 @@
 package co.kr.tnt.signup.trainer
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -14,8 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.relocation.BringIntoViewRequester
-import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -26,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,9 +38,7 @@ import co.kr.tnt.designsystem.component.TnTLabeledTextField
 import co.kr.tnt.designsystem.component.TnTTopBar
 import co.kr.tnt.designsystem.component.button.TnTBottomButton
 import co.kr.tnt.designsystem.theme.TnTTheme
-import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SetTrainerProfileScreen(
     modifier: Modifier = Modifier,
@@ -55,10 +49,6 @@ fun SetTrainerProfileScreen(
     var warningState by remember { mutableStateOf(false) }
 
     warningState = text.length > maxLength
-
-    // 키보드가 올라올 때 TextField를 스크롤하여 보이도록 설정
-    val bringIntoViewRequester = remember { BringIntoViewRequester() }
-    val coroutineScope = rememberCoroutineScope()
 
     Box(
         modifier = modifier
@@ -94,18 +84,13 @@ fun SetTrainerProfileScreen(
                 onValueChange = { newValue ->
                     val filteredText = validateInput(newValue)
                     text = filteredText
-
-                    // 입력 필드가 보이도록 스크롤 이동
-                    coroutineScope.launch {
-                        bringIntoViewRequester.bringIntoView()
-                    }
                 },
                 modifier = Modifier
                     .wrapContentHeight()
-                    .padding(horizontal = 20.dp)
-                    .bringIntoViewRequester(bringIntoViewRequester),
+                    .padding(horizontal = 20.dp),
                 placeholder = stringResource(R.string.signup_set_name_placeholder),
                 maxLength = maxLength,
+                isSingleLine = true,
                 showWarning = warningState,
                 isRequired = true,
                 warningMessage = "$maxLength" + stringResource(R.string.signup_warning_text_length),
