@@ -1,23 +1,21 @@
 package co.kr.tnt.signup.trainer
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -41,62 +39,57 @@ import co.kr.tnt.designsystem.component.button.TnTBottomButton
 import co.kr.tnt.designsystem.theme.TnTTheme
 
 @Composable
-fun TrainerProfileSetupScreen(
-    modifier: Modifier = Modifier,
-) {
+fun TrainerProfileSetupScreen() {
     // TODO 상태 관리 따로 빼기
     val maxLength = 15
     var text by remember { mutableStateOf("") }
     val isWarning by remember { derivedStateOf { text.length > maxLength } }
 
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(TnTTheme.colors.commonColors.Common0)
-            .navigationBarsPadding(),
-    ) {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .imePadding()
-                .verticalScroll(rememberScrollState()),
-        ) {
-            // TODO 버튼 클릭 시 트레이너/트레이니 화면으로 이동
-            TnTTopBar(onBackClick = {})
-            Text(
-                text = stringResource(R.string.signup_set_name_title),
-                modifier = Modifier.padding(start = 24.dp),
-                color = TnTTheme.colors.neutralColors.Neutral950,
-                style = TnTTheme.typography.h2,
-            )
-            Spacer(Modifier.padding(top = 48.dp))
-            SetProfileImage()
-            Spacer(Modifier.padding(top = 60.dp))
-            TnTLabeledTextField(
-                title = stringResource(R.string.name),
-                value = text,
-                onValueChange = { newValue ->
-                    val filteredText = validateInput(newValue)
-                    text = filteredText
-                },
+    Scaffold(
+        topBar = { TnTTopBar(onBackClick = {}) },
+        containerColor = TnTTheme.colors.commonColors.Common0,
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            Column(
                 modifier = Modifier
-                    .wrapContentHeight()
-                    .padding(horizontal = 20.dp),
-                placeholder = stringResource(R.string.signup_set_name_placeholder),
-                maxLength = maxLength,
-                isSingleLine = true,
-                showWarning = isWarning,
-                isRequired = true,
-                warningMessage = "$maxLength" + stringResource(R.string.signup_warning_text_length),
+                    .fillMaxSize()
+                    .imePadding()
+                    .verticalScroll(rememberScrollState()),
+            ) {
+                // TODO 버튼 클릭 시 트레이너/트레이니 화면으로 이동
+                Text(
+                    text = stringResource(R.string.signup_set_name_title),
+                    modifier = Modifier.padding(start = 24.dp),
+                    color = TnTTheme.colors.neutralColors.Neutral950,
+                    style = TnTTheme.typography.h2,
+                )
+                Spacer(Modifier.padding(top = 48.dp))
+                SetProfileImage()
+                Spacer(Modifier.padding(top = 60.dp))
+                TnTLabeledTextField(
+                    title = stringResource(R.string.name),
+                    value = text,
+                    onValueChange = { newValue ->
+                        val filteredText = validateInput(newValue)
+                        text = filteredText
+                    },
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                    placeholder = stringResource(R.string.signup_set_name_placeholder),
+                    maxLength = maxLength,
+                    isSingleLine = true,
+                    showWarning = isWarning,
+                    isRequired = true,
+                    warningMessage = "$maxLength" + stringResource(R.string.signup_warning_text_length),
+                )
+            }
+            // TODO 트레이너 프로필 생성 완료 화면으로 이동
+            TnTBottomButton(
+                text = stringResource(R.string.next),
+                modifier = Modifier.align(Alignment.BottomCenter),
+                enabled = text.isNotBlank() && !isWarning,
+                onClick = { },
             )
         }
-        // TODO 트레이너 프로필 생성 완료 화면으로 이동
-        TnTBottomButton(
-            text = stringResource(R.string.next),
-            enabled = text.isNotBlank() && !isWarning,
-            onClick = { },
-            modifier = Modifier.align(Alignment.BottomCenter),
-        )
     }
 }
 
@@ -147,6 +140,6 @@ private fun SetProfileImage(
 @Composable
 private fun TrainerProfileSetupScreenPreview() {
     TnTTheme {
-        TrainerProfileSetupScreen(modifier = Modifier.fillMaxSize())
+        TrainerProfileSetupScreen()
     }
 }
