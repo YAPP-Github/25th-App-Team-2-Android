@@ -101,8 +101,8 @@ fun TraineePTPurposeScreen() {
 fun PurposeButton(
     @StringRes textResId: Int,
     isSelected: Boolean,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
     TnTTextButton(
         text = stringResource(textResId),

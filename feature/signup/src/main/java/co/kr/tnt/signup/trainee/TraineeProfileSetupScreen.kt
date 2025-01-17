@@ -55,7 +55,7 @@ fun TraineeProfileSetupScreen() {
                 )
                 Spacer(Modifier.padding(top = 48.dp))
                 ProfileImageSection(
-                    Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     defaultImage = R.drawable.img_default_profile_trainee,
                     onImageSelected = { },
                 )

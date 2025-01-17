@@ -23,8 +23,8 @@ import co.kr.tnt.designsystem.theme.TnTTheme
 
 @Composable
 fun ProfileImageSection(
-    modifier: Modifier = Modifier,
     defaultImage: Int,
+    modifier: Modifier = Modifier,
     @Suppress("UnusedParameter")
     onImageSelected: () -> Unit,
 ) {
