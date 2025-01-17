@@ -22,7 +22,10 @@ fun TnTNavHost(
             navController = navController,
             startDestination = appState.startDestination,
         ) {
-            loginScreen()
+            loginScreen(
+                navigateToHome = { },
+                navigateToSignup = { },
+            )
             homeNavGraph {
             }
         }

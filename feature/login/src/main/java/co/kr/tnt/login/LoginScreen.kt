@@ -51,6 +51,8 @@ import co.kr.tnt.login.model.TermState
 @Composable
 internal fun LoginRoute(
     viewModel: LoginViewModel = hiltViewModel(),
+    navigateToHome: () -> Unit,
+    navigateToSignup: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -73,6 +75,7 @@ internal fun LoginRoute(
                     state = uiState,
                     onCheckAllTermAgree = { viewModel.setEvent(LoginUiEvent.OnCheckAllTermAgree) },
                     onCheckTerm = { term -> viewModel.setEvent(LoginUiEvent.OnCheckTerm(term)) },
+                    onClickNext = { viewModel.setEvent(LoginUiEvent.OnClickNext) },
                 )
             },
         )
@@ -84,6 +87,8 @@ internal fun LoginRoute(
                 LoginSideEffect.ShowTermBottomSheet -> {
                     showBottomSheet = true
                 }
+                LoginSideEffect.NavigateToHome -> navigateToHome()
+                LoginSideEffect.NavigateToSignup -> navigateToSignup()
             }
         }
     }
@@ -177,6 +182,7 @@ private fun TermBottomSheetContent(
     state: LoginUiState,
     onCheckAllTermAgree: () -> Unit,
     onCheckTerm: (TermState) -> Unit,
+    onClickNext: () -> Unit,
 ) {
     val isAllTermChecked = state.isAllTermChecked()
 
@@ -224,7 +230,7 @@ private fun TermBottomSheetContent(
         TnTBottomButton(
             text = stringResource(R.string.next),
             enabled = isAllTermChecked,
-            onClick = { },
+            onClick = onClickNext,
         )
     }
 }
@@ -337,6 +343,7 @@ private fun TermBottomSheetContentPreview() {
             state = LoginUiState(),
             onCheckAllTermAgree = { },
             onCheckTerm = { },
+            onClickNext = { },
         )
     }
 }

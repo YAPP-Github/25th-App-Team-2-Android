@@ -25,5 +25,7 @@ internal class LoginContract {
 
     sealed interface LoginSideEffect : UiSideEffect {
         data object ShowTermBottomSheet : LoginSideEffect
+        data object NavigateToHome : LoginSideEffect
+        data object NavigateToSignup : LoginSideEffect
     }
 }

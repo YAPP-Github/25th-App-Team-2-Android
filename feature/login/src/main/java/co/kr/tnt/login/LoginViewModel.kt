@@ -18,7 +18,7 @@ internal class LoginViewModel @Inject constructor() : BaseViewModel<LoginUiState
             LoginUiEvent.OnCheckAllTermAgree -> checkAllTerms()
             is LoginUiEvent.OnCheckTerm -> checkTerm(event.termState)
             is LoginUiEvent.OnClickTermLink -> TODO()
-            LoginUiEvent.OnClickNext -> TODO()
+            LoginUiEvent.OnClickNext -> navigateToNext()
         }
     }
 
@@ -40,5 +40,10 @@ internal class LoginViewModel @Inject constructor() : BaseViewModel<LoginUiState
                     .toMap(),
             )
         }
+    }
+
+    private fun navigateToNext() {
+        // TODO 회원가입이 되어있는 유저인 경우 홈, 그렇지 않은 경우 회원가입 화면 이동
+        sendEffect(LoginSideEffect.NavigateToSignup)
     }
 }
