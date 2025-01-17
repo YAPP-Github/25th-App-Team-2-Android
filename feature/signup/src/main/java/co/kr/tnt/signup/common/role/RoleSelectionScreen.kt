@@ -26,19 +26,15 @@ import co.kr.tnt.designsystem.component.button.TnTTextButton
 import co.kr.tnt.designsystem.component.button.model.ButtonSize
 import co.kr.tnt.designsystem.component.button.model.ButtonType
 import co.kr.tnt.designsystem.theme.TnTTheme
+import co.kr.tnt.domain.model.Role
 import co.kr.tnt.signup.common.role.model.RoleState
 
 @Composable
 fun RoleSelectionScreen(
     modifier: Modifier = Modifier,
 ) {
-    var selectedRole by remember { mutableStateOf<RoleState>(RoleState.Trainer) }
-
-    val roleImage = if (selectedRole == RoleState.Trainer) {
-        painterResource(RoleState.Trainer.roleImageResId)
-    } else {
-        painterResource(RoleState.Trainee.roleImageResId)
-    }
+    var selectedRole by remember { mutableStateOf(Role.Trainer) }
+    val roleState = RoleState.fromDomain(selectedRole)
 
     Column(
         modifier = modifier
@@ -59,13 +55,11 @@ fun RoleSelectionScreen(
                 style = TnTTheme.typography.body1Medium,
             )
         }
-        Spacer(modifier = Modifier.weight(1f))
         Image(
-            painter = roleImage,
+            painter = painterResource(roleState.imageResId),
             contentDescription = null,
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
-        Spacer(modifier = Modifier.weight(1.1f))
         // TODO 선택한 버튼 정보 저장
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -74,21 +68,20 @@ fun RoleSelectionScreen(
                 .padding(horizontal = 20.dp),
         ) {
             TnTTextButton(
-                text = RoleState.Trainer.text,
+                text = stringResource(RoleState.Trainer.textResId),
                 modifier = Modifier.weight(1f),
                 size = ButtonSize.Large,
-                type = if (selectedRole == RoleState.Trainer) ButtonType.RedOutline else ButtonType.GrayOutline,
-                onClick = { selectedRole = RoleState.Trainer },
+                type = if (selectedRole == Role.Trainer) ButtonType.RedOutline else ButtonType.GrayOutline,
+                onClick = { selectedRole = Role.Trainer },
             )
             TnTTextButton(
-                text = RoleState.Trainee.text,
+                text = stringResource(RoleState.Trainee.textResId),
                 modifier = Modifier.weight(1f),
                 size = ButtonSize.Large,
-                type = if (selectedRole == RoleState.Trainee) ButtonType.RedOutline else ButtonType.GrayOutline,
-                onClick = { selectedRole = RoleState.Trainee },
+                type = if (selectedRole == Role.Trainee) ButtonType.RedOutline else ButtonType.GrayOutline,
+                onClick = { selectedRole = Role.Trainee },
             )
         }
-        Spacer(modifier = Modifier.weight(1.2f))
         // TODO 클릭 시 이름 입력 화면으로 이동
         TnTBottomButton(
             text = stringResource(R.string.next),
