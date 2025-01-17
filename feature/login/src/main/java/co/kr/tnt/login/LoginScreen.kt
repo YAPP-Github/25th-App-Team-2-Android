@@ -297,7 +297,7 @@ private fun TermItem(
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            text = "보기",
+            text = stringResource(R.string.see),
             color = TnTTheme.colors.neutralColors.Neutral300,
             style = TnTTheme.typography.body2Medium,
             modifier = Modifier.clickable {
