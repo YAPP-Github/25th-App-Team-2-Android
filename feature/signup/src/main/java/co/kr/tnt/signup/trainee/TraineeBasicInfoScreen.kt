@@ -159,6 +159,7 @@ private fun BirthdayPicker(
         Text(
             text = selectedDate,
             color = textColor,
+            style = TnTTheme.typography.body1Medium,
             textAlign = TextAlign.Start,
         )
     }
