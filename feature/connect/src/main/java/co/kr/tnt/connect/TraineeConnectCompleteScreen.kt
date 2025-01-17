@@ -27,10 +27,10 @@ import co.kr.tnt.designsystem.theme.TnTTheme
 import co.kr.tnt.feature.connect.R
 
 @Composable
-fun TrainerConnectCompleteScreen(
+fun TraineeConnectCompleteScreen(
     onNextClick: () -> Unit,
 ) {
-    val name = "김회원"
+    val name = "김헬짱"
 
     Scaffold { innerPadding ->
         Box(
@@ -52,7 +52,7 @@ fun TrainerConnectCompleteScreen(
                 ) {
                     Spacer(Modifier.weight(1f))
                     Text(
-                        text = stringResource(R.string.connect_with_trainee, name),
+                        text = stringResource(R.string.connect_with_trainer, name),
                         color = TnTTheme.colors.commonColors.Common0,
                         style = TnTTheme.typography.h1,
                         modifier = Modifier.padding(horizontal = 24.dp),
@@ -63,13 +63,13 @@ fun TrainerConnectCompleteScreen(
                         horizontalArrangement = Arrangement.Center,
                     ) {
                         ProfileSection(
-                            name = "김회원",
-                            image = co.kr.tnt.core.designsystem.R.drawable.img_default_profile_trainee
+                            name = "김피티",
+                            image = co.kr.tnt.core.designsystem.R.drawable.img_default_profile_trainer
                         )
                         Spacer(Modifier.padding(16.dp))
                         ProfileSection(
-                            name = "김피티",
-                            image = co.kr.tnt.core.designsystem.R.drawable.img_default_profile_trainer
+                            name = "김회원",
+                            image = co.kr.tnt.core.designsystem.R.drawable.img_default_profile_trainee
                         )
                     }
                     Image(
@@ -116,9 +116,9 @@ private fun ProfileSection(
 
 @Preview(showBackground = true)
 @Composable
-private fun TrainerConnectCompleteScreenPreview() {
+private fun TraineeConnectCompleteScreenPreview() {
     TnTTheme {
-        TrainerConnectCompleteScreen(
+        TraineeConnectCompleteScreen(
             onNextClick = {},
         )
     }

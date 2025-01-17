@@ -12,4 +12,5 @@
     <string name="next">다음</string>
 
     <string name="connect_with_trainee">%s 트레이니와\n연결되었어요!</string>
+    <string name="connect_with_trainer">%s 트레이너와\n연결되었어요!</string>
 </resources>
