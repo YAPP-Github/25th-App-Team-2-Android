@@ -11,9 +11,9 @@
     <string name="trainer">트레이너</string>
     <string name="trainee">트레이니</string>
 
-    <string name="user_birthday">생년월일</string>
-    <string name="user_height">키</string>
-    <string name="user_weight">체중</string>
+    <string name="birthday_label">생년월일</string>
+    <string name="height_label">키</string>
+    <string name="weight_label">체중</string>
     <string name="height_unit">cm</string>
     <string name="weight_unit">kg</string>
 

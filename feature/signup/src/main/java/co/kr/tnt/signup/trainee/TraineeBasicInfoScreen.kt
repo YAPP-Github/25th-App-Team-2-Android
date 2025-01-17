@@ -75,7 +75,7 @@ fun TraineeBasicInfoScreen() {
                 )
                 Spacer(Modifier.padding(top = 48.dp))
                 Text(
-                    text = stringResource(R.string.user_birthday),
+                    text = stringResource(R.string.birthday_label),
                     color = TnTTheme.colors.neutralColors.Neutral900,
                     style = TnTTheme.typography.body1Bold,
                     modifier = Modifier.padding(start = 20.dp, bottom = 8.dp),
@@ -98,7 +98,7 @@ fun TraineeBasicInfoScreen() {
                         .padding(horizontal = 20.dp),
                 ) {
                     TnTLabeledTextField(
-                        title = stringResource(R.string.user_height),
+                        title = stringResource(R.string.height_label),
                         value = height,
                         placeholder = "0",
                         isSingleLine = true,
@@ -116,7 +116,7 @@ fun TraineeBasicInfoScreen() {
                         modifier = Modifier.weight(1f),
                     )
                     TnTLabeledTextField(
-                        title = stringResource(R.string.user_weight),
+                        title = stringResource(R.string.weight_label),
                         value = weight,
                         placeholder = "00.0",
                         isSingleLine = true,
