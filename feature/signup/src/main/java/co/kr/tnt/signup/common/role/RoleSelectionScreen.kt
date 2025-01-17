@@ -26,13 +26,15 @@ import co.kr.tnt.designsystem.component.button.TnTTextButton
 import co.kr.tnt.designsystem.component.button.model.ButtonSize
 import co.kr.tnt.designsystem.component.button.model.ButtonType
 import co.kr.tnt.designsystem.theme.TnTTheme
+import co.kr.tnt.domain.model.Role
 import co.kr.tnt.signup.common.role.model.RoleState
 
 @Composable
 fun RoleSelectionScreen(
     modifier: Modifier = Modifier,
 ) {
-    var selectedRole by remember { mutableStateOf<RoleState>(RoleState.Trainer) }
+    var selectedRole by remember { mutableStateOf(Role.Trainer) }
+    val roleState = RoleState.fromDomain(selectedRole)
 
     Column(
         modifier = modifier
@@ -54,7 +56,7 @@ fun RoleSelectionScreen(
             )
         }
         Image(
-            painter = painterResource(selectedRole.imageResId),
+            painter = painterResource(roleState.imageResId),
             contentDescription = null,
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
@@ -69,15 +71,15 @@ fun RoleSelectionScreen(
                 text = stringResource(RoleState.Trainer.textResId),
                 modifier = Modifier.weight(1f),
                 size = ButtonSize.Large,
-                type = if (selectedRole == RoleState.Trainer) ButtonType.RedOutline else ButtonType.GrayOutline,
-                onClick = { selectedRole = RoleState.Trainer },
+                type = if (selectedRole == Role.Trainer) ButtonType.RedOutline else ButtonType.GrayOutline,
+                onClick = { selectedRole = Role.Trainer },
             )
             TnTTextButton(
                 text = stringResource(RoleState.Trainee.textResId),
                 modifier = Modifier.weight(1f),
                 size = ButtonSize.Large,
-                type = if (selectedRole == RoleState.Trainee) ButtonType.RedOutline else ButtonType.GrayOutline,
-                onClick = { selectedRole = RoleState.Trainee },
+                type = if (selectedRole == Role.Trainee) ButtonType.RedOutline else ButtonType.GrayOutline,
+                onClick = { selectedRole = Role.Trainee },
             )
         }
         // TODO 클릭 시 이름 입력 화면으로 이동
