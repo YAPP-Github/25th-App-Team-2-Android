@@ -34,12 +34,6 @@ fun RoleSelectionScreen(
 ) {
     var selectedRole by remember { mutableStateOf<RoleState>(RoleState.Trainer) }
 
-    val roleImage = if (selectedRole == RoleState.Trainer) {
-        painterResource(RoleState.Trainer.roleImageResId)
-    } else {
-        painterResource(RoleState.Trainee.roleImageResId)
-    }
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -60,7 +54,7 @@ fun RoleSelectionScreen(
             )
         }
         Image(
-            painter = roleImage,
+            painter = painterResource(selectedRole.imageResId),
             contentDescription = null,
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
@@ -72,14 +66,14 @@ fun RoleSelectionScreen(
                 .padding(horizontal = 20.dp),
         ) {
             TnTTextButton(
-                text = RoleState.Trainer.text,
+                text = stringResource(RoleState.Trainer.textResId),
                 modifier = Modifier.weight(1f),
                 size = ButtonSize.Large,
                 type = if (selectedRole == RoleState.Trainer) ButtonType.RedOutline else ButtonType.GrayOutline,
                 onClick = { selectedRole = RoleState.Trainer },
             )
             TnTTextButton(
-                text = RoleState.Trainee.text,
+                text = stringResource(RoleState.Trainee.textResId),
                 modifier = Modifier.weight(1f),
                 size = ButtonSize.Large,
                 type = if (selectedRole == RoleState.Trainee) ButtonType.RedOutline else ButtonType.GrayOutline,
