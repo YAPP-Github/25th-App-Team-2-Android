@@ -26,7 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,13 +36,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import co.kr.tnt.designsystem.component.TnTDivider
 import co.kr.tnt.designsystem.component.TnTModalBottomSheet
-import co.kr.tnt.designsystem.component.TnTnDivider
 import co.kr.tnt.designsystem.component.button.TnTBottomButton
 import co.kr.tnt.designsystem.theme.TnTTheme
 import co.kr.tnt.feature.login.R
 import co.kr.tnt.login.LoginContract.LoginSideEffect
 import co.kr.tnt.login.LoginContract.LoginUiEvent
+import co.kr.tnt.login.LoginContract.LoginUiState
 import co.kr.tnt.login.model.TermState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -50,12 +52,13 @@ import co.kr.tnt.login.model.TermState
 internal fun LoginRoute(
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    var showBottomSheet by remember { mutableStateOf(false) }
+    var showBottomSheet by rememberSaveable { mutableStateOf(false) }
 
     LoginScreen(
         onClickKakaoLogin = {
-            viewModel.setEvent(LoginUiEvent.OnKakaoLoginClicked)
+            viewModel.setEvent(LoginUiEvent.OnClickKakaoLogin)
         },
     )
 
@@ -65,7 +68,13 @@ internal fun LoginRoute(
             onDismissRequest = {
                 showBottomSheet = false
             },
-            content = { TermBottomSheetContent() },
+            content = {
+                TermBottomSheetContent(
+                    state = uiState,
+                    onCheckAllTermAgree = { viewModel.setEvent(LoginUiEvent.OnCheckAllTermAgree) },
+                    onCheckTerm = { term -> viewModel.setEvent(LoginUiEvent.OnCheckTerm(term)) },
+                )
+            },
         )
     }
 
@@ -164,7 +173,13 @@ private fun KakaoLoginButton(
 }
 
 @Composable
-private fun TermBottomSheetContent() {
+private fun TermBottomSheetContent(
+    state: LoginUiState,
+    onCheckAllTermAgree: () -> Unit,
+    onCheckTerm: (TermState) -> Unit,
+) {
+    val isAllTermChecked = state.isAllTermChecked()
+
     Column(
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -186,45 +201,76 @@ private fun TermBottomSheetContent() {
                 style = TnTTheme.typography.body2Medium,
             )
             Spacer(modifier = Modifier.height(40.dp))
-            Row {
-                TermCheckBox(
-                    isChecked = false,
-                    onClick = { },
+            AllTermCheckItem(
+                isAllTermChecked = isAllTermChecked,
+                onCheck = onCheckAllTermAgree,
+            )
+            TnTDivider(modifier = Modifier.padding(vertical = 8.dp))
+            state.terms.entries.forEachIndexed { index, (termState, isChecked) ->
+                val isLastIndex = (state.terms.size - 1) == index
+
+                TermItem(
+                    termState = termState,
+                    isChecked = isChecked,
+                    onCheck = onCheckTerm,
                 )
-                Spacer(modifier = Modifier.width(8.dp))
-                Column {
-                    Text(
-                        text = stringResource(R.string.agree_all),
-                        color = TnTTheme.colors.neutralColors.Neutral900,
-                        style = TnTTheme.typography.body2Bold,
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = stringResource(R.string.agree_all_terms_for_service),
-                        color = TnTTheme.colors.neutralColors.Neutral500,
-                        style = TnTTheme.typography.body2Medium,
-                    )
+
+                if (!isLastIndex) {
+                    Spacer(modifier = Modifier.height(12.dp))
                 }
             }
-            TnTnDivider(modifier = Modifier.padding(vertical = 8.dp))
-            // TODO 실제 값 연동
-            TermItem(TermState.TermsOfServiceState(true))
-            Spacer(modifier = Modifier.height(12.dp))
-            TermItem(TermState.PrivacyPolicyState(true))
         }
         Spacer(modifier = Modifier.height(94.dp))
-        TnTBottomButton(stringResource(R.string.next)) { }
+        TnTBottomButton(
+            text = stringResource(R.string.next),
+            enabled = isAllTermChecked,
+            onClick = { },
+        )
     }
 }
 
 @Composable
-private fun TermItem(termState: TermState) {
+private fun AllTermCheckItem(
+    isAllTermChecked: Boolean,
+    onCheck: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Row(modifier = modifier) {
+        TermCheckBox(
+            isChecked = isAllTermChecked,
+            onClick = onCheck,
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Column {
+            Text(
+                text = stringResource(R.string.agree_all),
+                color = TnTTheme.colors.neutralColors.Neutral900,
+                style = TnTTheme.typography.body2Bold,
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = stringResource(R.string.agree_all_terms_for_service),
+                color = TnTTheme.colors.neutralColors.Neutral500,
+                style = TnTTheme.typography.body2Medium,
+            )
+        }
+    }
+}
+
+@Composable
+private fun TermItem(
+    termState: TermState,
+    isChecked: Boolean,
+    onCheck: (termState: TermState) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Row(
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         TermCheckBox(
-            isChecked = true,
-            onClick = { },
+            isChecked = isChecked,
+            onClick = { onCheck(termState) },
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
@@ -287,6 +333,10 @@ private fun LoginScreenPreview() {
 @Composable
 private fun TermBottomSheetContentPreview() {
     TnTTheme {
-        TermBottomSheetContent()
+        TermBottomSheetContent(
+            state = LoginUiState(),
+            onCheckAllTermAgree = { },
+            onCheckTerm = { },
+        )
     }
 }

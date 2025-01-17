@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 import co.kr.tnt.designsystem.theme.TnTTheme
 
 @Composable
-fun TnTnDivider(modifier: Modifier = Modifier) {
+fun TnTDivider(modifier: Modifier = Modifier) {
     HorizontalDivider(
         modifier = modifier.padding(vertical = 8.dp),
         thickness = 2.dp,
@@ -21,6 +21,6 @@ fun TnTnDivider(modifier: Modifier = Modifier) {
 @Composable
 private fun TnTDividerPreview() {
     TnTTheme {
-        TnTnDivider()
+        TnTDivider()
     }
 }
