@@ -29,7 +29,7 @@ import co.kr.tnt.designsystem.theme.TnTTheme
 import co.kr.tnt.feature.connect.R
 
 @Composable
-fun TraineeConnectScreen(
+fun TraineeConnectCodeScreen(
     onSkipClick: () -> Unit,
     onNextClick: () -> Unit,
 ) {
@@ -98,9 +98,9 @@ fun TraineeConnectScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun TraineeConnectScreenPreview() {
+private fun TraineeConnectCodeScreenPreview() {
     TnTTheme {
-        TraineeConnectScreen(
+        TraineeConnectCodeScreen(
             onSkipClick = {},
             onNextClick = {},
         )
