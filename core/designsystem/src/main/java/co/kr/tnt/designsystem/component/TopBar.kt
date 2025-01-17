@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -13,6 +15,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,10 +33,17 @@ fun TnTTopBar(
     title: String = "",
     onBackClick: () -> Unit = {},
     modifier: Modifier = Modifier,
+    windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
     trailingComponent: @Composable RowScope.() -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
-        modifier = modifier,
+        modifier = modifier
+            .fillMaxWidth()
+            // 디자인상으로는 16dp가 맞으나, 라이브러리에서 기본적으로
+            // horizontal padding 으로 4dp 를 부여하고 있음.
+            // 이에 따라 16dp - 4dp 계산값으로 적용
+            // see : TopAppBarLayout
+            .padding(horizontal = 12.dp),
         title = {
             Text(
                 text = title,
@@ -56,6 +66,11 @@ fun TnTTopBar(
                 )
             }
         },
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = TnTTheme.colors.commonColors.Common0,
+        ),
+        windowInsets = windowInsets,
+        expandedHeight = 60.dp,
     )
 }
 

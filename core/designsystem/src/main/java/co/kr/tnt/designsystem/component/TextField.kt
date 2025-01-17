@@ -24,8 +24,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import co.kr.tnt.core.designsystem.R
 import co.kr.tnt.designsystem.component.button.TnTTextButton
 import co.kr.tnt.designsystem.component.button.model.ButtonSize
 import co.kr.tnt.designsystem.theme.TnTTheme
@@ -149,7 +151,7 @@ fun TnTLabeledTextField(
             Spacer(Modifier.weight(1f))
 
             Text(
-                text = "${value.length}/$maxLength",
+                text = stringResource(R.string.text_counter, value.length, maxLength),
                 style = TnTTheme.typography.label1Medium,
                 color = counterColor,
             )
