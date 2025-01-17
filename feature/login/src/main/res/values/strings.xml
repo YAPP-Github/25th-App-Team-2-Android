@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nice_to_meet_you">만나서 반가워요!</string>
+    <string name="trainer_trainee_chemistry_boom">트레이너와 트레이니\n케미 터트리기</string>
+    <string name="continue_with_kakao">카카오로 계속하기</string>
+</resources>
