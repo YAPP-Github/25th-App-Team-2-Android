@@ -33,7 +33,7 @@ fun TrainerProfileCompleteScreen(
     BackHandler { onBackClick() }
 
     // TODO 이름 불러오기
-    val name = "김헬짱"
+    val name = "김피티"
 
     Scaffold(
         containerColor = TnTTheme.colors.commonColors.Common0,

@@ -14,6 +14,7 @@ import co.kr.tnt.signup.trainee.TraineeNoteForTrainerScreen
 import co.kr.tnt.signup.trainee.TraineePTPurposeScreen
 import co.kr.tnt.signup.trainee.TraineeProfileCompleteScreen
 import co.kr.tnt.signup.trainee.TraineeProfileSetupScreen
+import co.kr.tnt.signup.trainer.TrainerProfileCompleteScreen
 import co.kr.tnt.signup.trainer.TrainerProfileSetupScreen
 
 
@@ -91,7 +92,7 @@ fun SignUpScreen(
             onNextClick = onNextClick,
         )
 
-        SignUpPage.TrainerProfileComplete -> TraineeProfileCompleteScreen(
+        SignUpPage.TrainerProfileComplete -> TrainerProfileCompleteScreen(
             onBackClick = onBackClick,
             onNextClick = onNextClick,
         )
