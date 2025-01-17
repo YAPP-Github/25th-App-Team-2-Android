@@ -27,6 +27,7 @@
 
     <string name="signup_set_basic_info_title">회원님의 기본 정보를\n입력해주세요</string>
     <string name="signup_set_basic_info_subtitle">PT에 참고할 기본 정보예요!</string>
+    <string name="signup_birthday_placeholder">2001/01/01</string>
 
     <string name="signup_pt_purpose_title">PT를 받는 목적에 대해\n알려주세요!</string>
     <string name="signup_pt_purpose_subtitle">다중 선택이 가능해요.</string>

@@ -36,6 +36,8 @@ import co.kr.tnt.designsystem.component.TnTTopBar
 import co.kr.tnt.designsystem.component.button.TnTBottomButton
 import co.kr.tnt.designsystem.theme.TnTTheme
 import co.kr.tnt.signup.trainee.component.ProgressSteps
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
 @Composable
@@ -43,7 +45,7 @@ fun TraineeBasicInfoScreen() {
     // TODO 상태 관리 따로 빼기
     var height by remember { mutableStateOf("") }
     var weight by remember { mutableStateOf("") }
-    var birthday by remember { mutableStateOf("") }
+    var birthday by remember { mutableStateOf<LocalDate?>(null) }
 
     val isHeightValid by remember { derivedStateOf { height.isNotEmpty() && validateInput(height) } }
     val isWeightValid by remember { derivedStateOf { weight.isNotEmpty() && validateInput(weight) } }
@@ -77,6 +79,7 @@ fun TraineeBasicInfoScreen() {
                 )
                 BirthdayPicker(
                     modifier = Modifier.padding(horizontal = 20.dp),
+                    selectedDate = birthday,
                     onDateSelected = { birthday = it },
                 )
                 HorizontalDivider(
@@ -85,20 +88,49 @@ fun TraineeBasicInfoScreen() {
                     modifier = Modifier.padding(horizontal = 20.dp),
                 )
                 Spacer(Modifier.padding(top = 48.dp))
-                BodyInfoInput(
-                    height = height,
-                    weight = weight,
-                    onHeightChange = { newHeight ->
-                        if (validateInput(newHeight)) {
-                            height = newHeight
-                        }
-                    },
-                    onWeightChange = { newWeight ->
-                        if (validateInput(newWeight)) {
-                            weight = newWeight
-                        }
-                    },
-                )
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
+                ) {
+                    TnTLabeledTextField(
+                        title = stringResource(R.string.user_height),
+                        value = height,
+                        placeholder = "0",
+                        isSingleLine = true,
+                        isRequired = true,
+                        showCounter = false,
+                        keyboardType = KeyboardType.Number,
+                        trailingComponent = {
+                            UnitLabel(R.string.height_unit)
+                        },
+                        onValueChange = { newHeight ->
+                            if (validateInput(newHeight)) {
+                                height = newHeight
+                            }
+                        },
+                        modifier = Modifier.weight(1f),
+                    )
+                    TnTLabeledTextField(
+                        title = stringResource(R.string.user_weight),
+                        value = weight,
+                        placeholder = "00.0",
+                        isSingleLine = true,
+                        isRequired = true,
+                        showCounter = false,
+                        keyboardType = KeyboardType.Number,
+                        trailingComponent = {
+                            UnitLabel(R.string.weight_unit)
+                        },
+                        onValueChange = { newWeight ->
+                            if (validateInput(newWeight)) {
+                                weight = newWeight
+                            }
+                        },
+                        modifier = Modifier.weight(1f),
+                    )
+                }
             }
             // TODO 트레이니 PT 목적 화면으로 이동
             TnTBottomButton(
@@ -114,53 +146,42 @@ fun TraineeBasicInfoScreen() {
 @Composable
 private fun BirthdayPicker(
     modifier: Modifier = Modifier,
-    initialDate: String = "2000/01/01",
-    onDateSelected: (String) -> Unit = {},
+    selectedDate: LocalDate?,
+    onDateSelected: (LocalDate) -> Unit,
 ) {
-    var selectedDate by remember { mutableStateOf(initialDate) }
     val context = LocalContext.current
-
-    val textColor = if (selectedDate == initialDate) {
-        TnTTheme.colors.neutralColors.Neutral400
-    } else {
-        TnTTheme.colors.neutralColors.Neutral600
-    }
+    val dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
 
     Box(
         modifier = modifier
             .fillMaxWidth()
             .padding(8.dp)
             .clickable {
-                val calendar = Calendar.getInstance()
-                val today = Calendar.getInstance()
-                val year = calendar.get(Calendar.YEAR)
-                val month = calendar.get(Calendar.MONTH)
-                val day = calendar.get(Calendar.DAY_OF_MONTH)
+                val today = LocalDate.now()
 
                 DatePickerDialog(
                     context,
                     { _, selectedYear, selectedMonth, selectedDay ->
-                        val formattedDate =
-                            "$selectedYear/${"%02d".format(selectedMonth + 1)}/${
-                                "%02d".format(selectedDay)
-                            }"
-                        selectedDate = formattedDate
-                        onDateSelected(formattedDate)
+                        val newDate = LocalDate.of(selectedYear, selectedMonth + 1, selectedDay)
+                        onDateSelected(newDate)
                     },
-                    year,
-                    month,
-                    day,
-                )
-                    .apply {
-                        // 오늘 이후는 선택 불가능
-                        datePicker.maxDate = today.timeInMillis
-                    }
-                    .show()
+                    today.year,
+                    today.monthValue - 1,
+                    today.dayOfMonth,
+                ).apply {
+                    // 오늘 이후는 선택 불가능
+                    datePicker.maxDate = Calendar.getInstance().timeInMillis
+                }.show()
             },
     ) {
         Text(
-            text = selectedDate,
-            color = textColor,
+            text = selectedDate?.format(dateFormatter)
+                ?: stringResource(R.string.signup_birthday_placeholder),
+            color = if (selectedDate == null) {
+                TnTTheme.colors.neutralColors.Neutral400
+            } else {
+                TnTTheme.colors.neutralColors.Neutral600
+            },
             style = TnTTheme.typography.body1Medium,
             textAlign = TextAlign.Start,
         )
@@ -168,7 +189,7 @@ private fun BirthdayPicker(
 }
 
 @Composable
-private fun Unit(stringResId: Int) {
+private fun UnitLabel(stringResId: Int) {
     Text(
         text = stringResource(stringResId),
         style = TnTTheme.typography.body1Medium,
@@ -182,50 +203,6 @@ private fun Unit(stringResId: Int) {
  */
 private fun validateInput(input: String): Boolean {
     return input.isEmpty() || (input.toDoubleOrNull() != null && !input.startsWith("0"))
-}
-
-@Composable
-private fun BodyInfoInput(
-    height: String,
-    weight: String,
-    onHeightChange: (String) -> Unit,
-    onWeightChange: (String) -> Unit,
-) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
-    ) {
-        TnTLabeledTextField(
-            title = stringResource(R.string.user_height),
-            value = height,
-            placeholder = "0",
-            isSingleLine = true,
-            isRequired = true,
-            showCounter = false,
-            keyboardType = KeyboardType.Number,
-            trailingComponent = {
-                Unit(R.string.height_unit)
-            },
-            onValueChange = onHeightChange,
-            modifier = Modifier.weight(1f),
-        )
-        TnTLabeledTextField(
-            title = stringResource(R.string.user_weight),
-            value = weight,
-            placeholder = "00.0",
-            isSingleLine = true,
-            isRequired = true,
-            showCounter = false,
-            keyboardType = KeyboardType.Number,
-            trailingComponent = {
-                Unit(R.string.weight_unit)
-            },
-            onValueChange = onWeightChange,
-            modifier = Modifier.weight(1f),
-        )
-    }
 }
 
 @Preview(showBackground = true)
