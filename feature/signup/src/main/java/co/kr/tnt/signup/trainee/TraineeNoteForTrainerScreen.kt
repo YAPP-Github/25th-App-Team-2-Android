@@ -26,6 +26,8 @@ import co.kr.tnt.designsystem.component.button.TnTBottomButton
 import co.kr.tnt.designsystem.theme.TnTTheme
 import co.kr.tnt.signup.trainee.component.ProgressSteps
 
+private const val MAX_LENGTH = 100
+
 @Composable
 fun TraineeNoteForTrainerScreen() {
     // TODO 상태 관리 따로 빼기
@@ -53,7 +55,7 @@ fun TraineeNoteForTrainerScreen() {
                 TnTOutlinedTextField(
                     value = text,
                     onValueChange = { newValue ->
-                        if (newValue.length <= 100) {
+                        if (newValue.length <= MAX_LENGTH) {
                             text = newValue
                         }
                     },
