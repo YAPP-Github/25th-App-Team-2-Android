@@ -1,22 +1,21 @@
 package co.kr.tnt.signup.trainee
 
 import android.util.Log
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,22 +27,16 @@ import co.kr.tnt.designsystem.component.button.model.ButtonSize
 import co.kr.tnt.designsystem.component.button.model.ButtonType
 import co.kr.tnt.designsystem.theme.TnTTheme
 import co.kr.tnt.signup.trainee.component.ProgressSteps
+import co.kr.tnt.signup.trainee.model.PTPurpose
 
+private const val ROW_NUM = 3
+private const val COLUMNS_NUM = 2
+
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TraineePTPurposeScreen() {
-    // Pair로 관리
-    val purposeItems = listOf(
-        R.string.signup_pt_purpose_loss_weight to R.string.signup_pt_purpose_strength,
-        R.string.signup_pt_purpose_health_care to R.string.signup_pt_purpose_flexibility,
-        R.string.signup_pt_purpose_body_profile to R.string.signup_pt_purpose_posture_correction,
-    )
-
     // TODO 리소스 id값 텍스트로 전환해 넘겨주기
-    val selectedPurposes = remember { mutableStateOf(setOf<Int>()) }
-
-    // 선택된 값 확인용
-    val context = LocalContext.current
-    val selectedTexts = selectedPurposes.value.map { context.getString(it) }
+    val selectedPurposes = remember { mutableStateOf(setOf<PTPurpose>()) }
 
     Scaffold(
         // TODO 버튼 클릭 시 트레이니 기본 정보 입력 화면으로 이동
@@ -59,26 +52,20 @@ fun TraineePTPurposeScreen() {
                     subTitle = stringResource(R.string.signup_pt_purpose_subtitle),
                 )
                 Spacer(Modifier.padding(top = 32.dp))
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                    modifier = Modifier.padding(horizontal = 20.dp),
-                ) {
-                    // 한 행에 2개씩
-                    purposeItems.forEach { (first, second) ->
-                        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                Column(modifier = Modifier.padding(horizontal = 20.dp)) {
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        maxItemsInEachRow = COLUMNS_NUM,
+                        maxLines = ROW_NUM,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        PTPurpose.entries.forEach { purpose ->
                             PurposeButton(
-                                textResId = first,
-                                isSelected = first in selectedPurposes.value,
+                                text = stringResource(purpose.textResId),
+                                isSelected = purpose in selectedPurposes.value,
                                 onClick = {
-                                    toggleSelection(selectedPurposes, first)
-                                },
-                                modifier = Modifier.weight(1f),
-                            )
-                            PurposeButton(
-                                textResId = second,
-                                isSelected = second in selectedPurposes.value,
-                                onClick = {
-                                    toggleSelection(selectedPurposes, second)
+                                    selectedPurposes.value = toggleSelection(selectedPurposes.value, purpose)
                                 },
                                 modifier = Modifier.weight(1f),
                             )
@@ -89,7 +76,7 @@ fun TraineePTPurposeScreen() {
             // TODO PT 주의사항 입력 화면으로 이동
             TnTBottomButton(
                 text = stringResource(R.string.next),
-                onClick = { Log.d("check", "선택된 값들\n$selectedTexts") },
+                onClick = { Log.d("check", "선택된 값들\n${selectedPurposes.value.map { it.name }}") },
                 enabled = selectedPurposes.value.isNotEmpty(),
                 modifier = Modifier.align(Alignment.BottomCenter),
             )
@@ -99,13 +86,13 @@ fun TraineePTPurposeScreen() {
 
 @Composable
 fun PurposeButton(
-    @StringRes textResId: Int,
+    text: String,
     isSelected: Boolean,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
     TnTTextButton(
-        text = stringResource(textResId),
+        text = text,
         modifier = modifier,
         size = ButtonSize.XLarge,
         type = if (isSelected) ButtonType.RedOutline else ButtonType.GrayOutline,
@@ -114,14 +101,13 @@ fun PurposeButton(
 }
 
 // 선택된 값 업데이트
-private fun toggleSelection(selectedPurposes: MutableState<Set<Int>>, purposeId: Int) {
-    selectedPurposes.value = if (purposeId in selectedPurposes.value) {
-        // 선택 해제
-        selectedPurposes.value - purposeId
-    } else {
-        // 선택 추가
-        selectedPurposes.value + purposeId
-    }
+private fun toggleSelection(
+    selectedPurposes: Set<PTPurpose>,
+    purpose: PTPurpose,
+): Set<PTPurpose> {
+    return selectedPurposes.toMutableSet().apply {
+        if (contains(purpose)) remove(purpose) else add(purpose)
+    }.toSet()
 }
 
 @Preview(showBackground = true)
