@@ -1,6 +1,7 @@
 package co.kr.tnt.login
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,13 +13,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,19 +36,54 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import co.kr.tnt.designsystem.component.TnTModalBottomSheet
+import co.kr.tnt.designsystem.component.TnTnDivider
+import co.kr.tnt.designsystem.component.button.TnTBottomButton
 import co.kr.tnt.designsystem.theme.TnTTheme
 import co.kr.tnt.feature.login.R
+import co.kr.tnt.login.LoginContract.LoginSideEffect
+import co.kr.tnt.login.LoginContract.LoginUiEvent
+import co.kr.tnt.login.model.TermState
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Suppress("UnusedParameter")
 internal fun LoginRoute(
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
-    LoginScreen()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    var showBottomSheet by remember { mutableStateOf(false) }
+
+    LoginScreen(
+        onClickKakaoLogin = {
+            viewModel.setEvent(LoginUiEvent.OnKakaoLoginClicked)
+        },
+    )
+
+    if (showBottomSheet) {
+        TnTModalBottomSheet(
+            sheetState = sheetState,
+            onDismissRequest = {
+                showBottomSheet = false
+            },
+            content = { TermBottomSheetContent() },
+        )
+    }
+
+    LaunchedEffect(viewModel.effect) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                LoginSideEffect.ShowTermBottomSheet -> {
+                    showBottomSheet = true
+                }
+            }
+        }
+    }
 }
 
 @Composable
-private fun LoginScreen() {
+private fun LoginScreen(
+    onClickKakaoLogin: () -> Unit,
+) {
     Scaffold(containerColor = TnTTheme.colors.commonColors.Common0) { innerPadding ->
         Box(
             modifier = Modifier
@@ -79,9 +123,7 @@ private fun LoginScreen() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 20.dp),
-                    onClick = {
-                        // TODO 약관 확인 바텀시트 출력
-                    },
+                    onClick = onClickKakaoLogin,
                 )
             }
         }
@@ -121,10 +163,130 @@ private fun KakaoLoginButton(
     }
 }
 
+@Composable
+private fun TermBottomSheetContent() {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(
+            modifier = Modifier.padding(horizontal = 20.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.please_agree_terms),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 17.dp),
+                color = TnTTheme.colors.neutralColors.Neutral900,
+                style = TnTTheme.typography.h3,
+            )
+            Text(
+                text = stringResource(R.string.privacy_protection_promise),
+                modifier = Modifier.fillMaxWidth(),
+                color = TnTTheme.colors.neutralColors.Neutral500,
+                style = TnTTheme.typography.body2Medium,
+            )
+            Spacer(modifier = Modifier.height(40.dp))
+            Row {
+                TermCheckBox(
+                    isChecked = false,
+                    onClick = { },
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Column {
+                    Text(
+                        text = stringResource(R.string.agree_all),
+                        color = TnTTheme.colors.neutralColors.Neutral900,
+                        style = TnTTheme.typography.body2Bold,
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = stringResource(R.string.agree_all_terms_for_service),
+                        color = TnTTheme.colors.neutralColors.Neutral500,
+                        style = TnTTheme.typography.body2Medium,
+                    )
+                }
+            }
+            TnTnDivider(modifier = Modifier.padding(vertical = 8.dp))
+            // TODO 실제 값 연동
+            TermItem(TermState.TermsOfServiceState(true))
+            Spacer(modifier = Modifier.height(12.dp))
+            TermItem(TermState.PrivacyPolicyState(true))
+        }
+        Spacer(modifier = Modifier.height(94.dp))
+        TnTBottomButton(stringResource(R.string.next)) { }
+    }
+}
+
+@Composable
+private fun TermItem(termState: TermState) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        TermCheckBox(
+            isChecked = true,
+            onClick = { },
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = buildString {
+                append("(")
+                append(
+                    if (termState.isRequired) {
+                        stringResource(R.string.required)
+                    } else {
+                        stringResource(R.string.optional)
+                    },
+                )
+                append(")")
+                append(stringResource(termState.titleRes))
+            },
+            color = TnTTheme.colors.neutralColors.Neutral500,
+            style = TnTTheme.typography.body2Medium,
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        Text(
+            text = "보기",
+            color = TnTTheme.colors.neutralColors.Neutral300,
+            style = TnTTheme.typography.body2Medium,
+            modifier = Modifier.clickable {
+            },
+        )
+    }
+}
+
+@Composable
+private fun TermCheckBox(
+    isChecked: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Icon(
+        modifier = modifier.clickable(onClick = onClick),
+        painter =
+            if (isChecked) {
+                painterResource(R.drawable.ic_check_box_enable)
+            } else {
+                painterResource(R.drawable.ic_check_box_disable)
+            },
+        contentDescription = "Check box",
+        tint = Color.Unspecified,
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun LoginScreenPreview() {
     TnTTheme {
-        LoginScreen()
+        LoginScreen(
+            onClickKakaoLogin = { },
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TermBottomSheetContentPreview() {
+    TnTTheme {
+        TermBottomSheetContent()
     }
 }
