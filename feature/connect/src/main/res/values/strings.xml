@@ -9,4 +9,7 @@
     <string name="type_invite_code_from_trainer">트레이너에게 받은\n초대 코드를 입력해 주세요</string>
     <string name="please_type_code">코드를 입력해주세요</string>
     <string name="complete">완료</string>
+    <string name="next">다음</string>
+
+    <string name="connect_with_trainee">%s 트레이니와\n연결되었어요!</string>
 </resources>
