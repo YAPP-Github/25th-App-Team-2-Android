@@ -7,6 +7,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import co.kr.tnt.home.navigation.homeNavGraph
 import co.kr.tnt.login.navigation.loginScreen
+import co.kr.tnt.signup.common.navigateToSignup
+import co.kr.tnt.signup.common.role.navigateToRoleSelection
+import co.kr.tnt.signup.common.role.roleSelectionScreen
+import co.kr.tnt.signup.common.signupScreen
 
 @Composable
 fun TnTNavHost(
@@ -24,7 +28,13 @@ fun TnTNavHost(
         ) {
             loginScreen(
                 navigateToHome = { },
-                navigateToSignup = { },
+                navigateToSignup = { navController.navigateToRoleSelection() },
+            )
+            roleSelectionScreen(
+                navigateToSignup = { isTrainer -> navController.navigateToSignup(isTrainer) }
+            )
+            signupScreen(
+                navigateToPrevious = { navController.popBackStack() }
             )
             homeNavGraph {
             }

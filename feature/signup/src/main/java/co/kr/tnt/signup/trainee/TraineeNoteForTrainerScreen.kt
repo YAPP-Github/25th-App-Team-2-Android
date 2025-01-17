@@ -1,5 +1,6 @@
 package co.kr.tnt.signup.trainee
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,13 +30,18 @@ import co.kr.tnt.signup.trainee.component.ProgressSteps
 private const val MAX_LENGTH = 100
 
 @Composable
-fun TraineeNoteForTrainerScreen() {
+fun TraineeNoteForTrainerScreen(
+    onNextClick: () -> Unit,
+    onBackClick: () -> Unit,
+) {
+    BackHandler { onBackClick() }
+
     // TODO 상태 관리 따로 빼기
     var text by remember { mutableStateOf("") }
 
     Scaffold(
         // TODO 버튼 클릭 시 트레이니 PT 목적 화면으로 이동
-        topBar = { TnTTopBar(onBackClick = {}) },
+        topBar = { TnTTopBar(onBackClick = onBackClick) },
         containerColor = TnTTheme.colors.commonColors.Common0,
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
@@ -69,7 +75,7 @@ fun TraineeNoteForTrainerScreen() {
                 text = stringResource(R.string.next),
                 modifier = Modifier.align(Alignment.BottomCenter),
                 enabled = text.isNotBlank(),
-                onClick = { },
+                onClick = onNextClick,
             )
         }
     }
@@ -79,6 +85,9 @@ fun TraineeNoteForTrainerScreen() {
 @Composable
 private fun TraineeNoteForTrainerScreenPreview() {
     TnTTheme {
-        TraineeNoteForTrainerScreen()
+        TraineeNoteForTrainerScreen(
+            onBackClick = {},
+            onNextClick = {},
+        )
     }
 }

@@ -1,6 +1,7 @@
 package co.kr.tnt.signup.trainee
 
 import android.app.DatePickerDialog
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -44,7 +45,12 @@ import java.util.Calendar
 private const val MAX_LENGTH = 5
 
 @Composable
-fun TraineeBasicInfoScreen() {
+fun TraineeBasicInfoScreen(
+    onNextClick: () -> Unit,
+    onBackClick: () -> Unit,
+) {
+    BackHandler { onBackClick() }
+
     // TODO 상태 관리 따로 빼기
     var height by remember { mutableStateOf("") }
     var weight by remember { mutableStateOf("") }
@@ -57,7 +63,7 @@ fun TraineeBasicInfoScreen() {
 
     Scaffold(
         // TODO 버튼 클릭 시 트레이니 이름 입력 화면으로 이동
-        topBar = { TnTTopBar(onBackClick = {}) },
+        topBar = { TnTTopBar(onBackClick = onBackClick,) },
         containerColor = TnTTheme.colors.commonColors.Common0,
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
@@ -140,7 +146,7 @@ fun TraineeBasicInfoScreen() {
                 text = stringResource(R.string.next),
                 modifier = Modifier.align(Alignment.BottomCenter),
                 enabled = isFormValid,
-                onClick = { },
+                onClick = onNextClick,
             )
         }
     }
@@ -212,6 +218,9 @@ private fun validateInput(input: String): Boolean {
 @Composable
 private fun TraineeBasicInfoScreenPreview() {
     TnTTheme {
-        TraineeBasicInfoScreen()
+        TraineeBasicInfoScreen(
+            onBackClick = {},
+            onNextClick = {},
+        )
     }
 }

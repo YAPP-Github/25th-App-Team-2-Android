@@ -88,7 +88,10 @@ internal fun LoginRoute(
                     showBottomSheet = true
                 }
                 LoginSideEffect.NavigateToHome -> navigateToHome()
-                LoginSideEffect.NavigateToSignup -> navigateToSignup()
+                LoginSideEffect.NavigateToSignup -> {
+                    showBottomSheet = false
+                    navigateToSignup()
+                }
             }
         }
     }

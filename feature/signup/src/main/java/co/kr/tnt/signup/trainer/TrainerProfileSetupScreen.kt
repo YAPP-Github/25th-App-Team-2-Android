@@ -30,14 +30,17 @@ import co.kr.tnt.designsystem.theme.TnTTheme
 import co.kr.tnt.signup.common.component.ProfileImageSection
 
 @Composable
-fun TrainerProfileSetupScreen() {
+fun TrainerProfileSetupScreen(
+    onNextClick: () -> Unit,
+    onBackClick: () -> Unit,
+) {
     // TODO 상태 관리 따로 빼기
     val maxLength = 15
     var text by remember { mutableStateOf("") }
     val isWarning by remember { derivedStateOf { text.length > maxLength } }
 
     Scaffold(
-        topBar = { TnTTopBar(onBackClick = {}) },
+        topBar = { TnTTopBar(onBackClick = onBackClick) },
         containerColor = TnTTheme.colors.commonColors.Common0,
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
@@ -82,7 +85,7 @@ fun TrainerProfileSetupScreen() {
                 text = stringResource(R.string.next),
                 modifier = Modifier.align(Alignment.BottomCenter),
                 enabled = text.isNotBlank() && !isWarning,
-                onClick = { },
+                onClick = onNextClick,
             )
         }
     }
@@ -99,6 +102,9 @@ private fun validateInput(input: String): String {
 @Composable
 private fun TrainerProfileSetupScreenPreview() {
     TnTTheme {
-        TrainerProfileSetupScreen()
+        TrainerProfileSetupScreen(
+            onBackClick = {},
+            onNextClick = {},
+        )
     }
 }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,62 +33,70 @@ import co.kr.tnt.signup.common.role.model.RoleState
 @Composable
 fun RoleSelectionScreen(
     modifier: Modifier = Modifier,
+    navigateToSignup: (isTrainer: Boolean) -> Unit,
 ) {
     var selectedRole by remember { mutableStateOf(Role.Trainer) }
     val roleState = RoleState.fromDomain(selectedRole)
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(TnTTheme.colors.commonColors.Common0),
-        verticalArrangement = Arrangement.SpaceBetween,
-    ) {
-        Column(modifier = Modifier.padding(start = 24.dp, top = 60.dp)) {
-            Text(
-                text = stringResource(R.string.signup_select_role_title),
-                color = TnTTheme.colors.neutralColors.Neutral950,
-                style = TnTTheme.typography.h2,
-            )
-            Spacer(modifier = Modifier.padding(top = 12.dp))
-            Text(
-                text = stringResource(R.string.signup_select_role_subtitle),
-                color = TnTTheme.colors.neutralColors.Neutral500,
-                style = TnTTheme.typography.body1Medium,
-            )
-        }
-        Image(
-            painter = painterResource(roleState.imageResId),
-            contentDescription = null,
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-        )
-        // TODO 선택한 버튼 정보 저장
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(horizontal = 20.dp),
+    Scaffold(
+        containerColor = TnTTheme.colors.commonColors.Common0,
+    ) { innerPadding ->
+        Column(
+            modifier = modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+                .background(TnTTheme.colors.commonColors.Common0),
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            TnTTextButton(
-                text = stringResource(RoleState.Trainer.textResId),
-                modifier = Modifier.weight(1f),
-                size = ButtonSize.Large,
-                type = if (selectedRole == Role.Trainer) ButtonType.RedOutline else ButtonType.GrayOutline,
-                onClick = { selectedRole = Role.Trainer },
+            Column(modifier = Modifier.padding(start = 24.dp, top = 60.dp)) {
+                Text(
+                    text = stringResource(R.string.signup_select_role_title),
+                    color = TnTTheme.colors.neutralColors.Neutral950,
+                    style = TnTTheme.typography.h2,
+                )
+                Spacer(modifier = Modifier.padding(top = 12.dp))
+                Text(
+                    text = stringResource(R.string.signup_select_role_subtitle),
+                    color = TnTTheme.colors.neutralColors.Neutral500,
+                    style = TnTTheme.typography.body1Medium,
+                )
+            }
+            Image(
+                painter = painterResource(roleState.imageResId),
+                contentDescription = null,
+                modifier = Modifier.align(Alignment.CenterHorizontally),
             )
-            TnTTextButton(
-                text = stringResource(RoleState.Trainee.textResId),
-                modifier = Modifier.weight(1f),
-                size = ButtonSize.Large,
-                type = if (selectedRole == Role.Trainee) ButtonType.RedOutline else ButtonType.GrayOutline,
-                onClick = { selectedRole = Role.Trainee },
+            // TODO 선택한 버튼 정보 저장
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(horizontal = 20.dp),
+            ) {
+                TnTTextButton(
+                    text = stringResource(RoleState.Trainer.textResId),
+                    modifier = Modifier.weight(1f),
+                    size = ButtonSize.Large,
+                    type = if (selectedRole == Role.Trainer) ButtonType.RedOutline else ButtonType.GrayOutline,
+                    onClick = { selectedRole = Role.Trainer },
+                )
+                TnTTextButton(
+                    text = stringResource(RoleState.Trainee.textResId),
+                    modifier = Modifier.weight(1f),
+                    size = ButtonSize.Large,
+                    type = if (selectedRole == Role.Trainee) ButtonType.RedOutline else ButtonType.GrayOutline,
+                    onClick = { selectedRole = Role.Trainee },
+                )
+            }
+            // TODO 클릭 시 이름 입력 화면으로 이동
+            TnTBottomButton(
+                text = stringResource(R.string.next),
+                enabled = true,
+                onClick = {
+                    navigateToSignup(selectedRole == Role.Trainer)
+                },
             )
         }
-        // TODO 클릭 시 이름 입력 화면으로 이동
-        TnTBottomButton(
-            text = stringResource(R.string.next),
-            enabled = true,
-            onClick = {},
-        )
     }
 }
 
@@ -95,6 +104,9 @@ fun RoleSelectionScreen(
 @Composable
 private fun RoleScreenPreview() {
     TnTTheme {
-        RoleSelectionScreen(modifier = Modifier.fillMaxSize())
+        RoleSelectionScreen(
+            modifier = Modifier.fillMaxSize(),
+            navigateToSignup = {},
+        )
     }
 }

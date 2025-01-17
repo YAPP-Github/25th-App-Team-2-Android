@@ -30,7 +30,10 @@ import co.kr.tnt.signup.common.component.ProfileImageSection
 import co.kr.tnt.signup.trainee.component.ProgressSteps
 
 @Composable
-fun TraineeProfileSetupScreen() {
+fun TraineeProfileSetupScreen(
+    onNextClick: () -> Unit,
+    onBackClick: () -> Unit,
+) {
     // TODO 상태 관리 따로 빼기
     val maxLength = 15
     var text by remember { mutableStateOf("") }
@@ -38,7 +41,7 @@ fun TraineeProfileSetupScreen() {
 
     Scaffold(
         // TODO 버튼 클릭 시 트레이너/트레이니 화면으로 이동
-        topBar = { TnTTopBar(onBackClick = {}) },
+        topBar = { TnTTopBar(onBackClick = onBackClick) },
         containerColor = TnTTheme.colors.commonColors.Common0,
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
@@ -80,7 +83,7 @@ fun TraineeProfileSetupScreen() {
             TnTBottomButton(
                 text = stringResource(R.string.next),
                 enabled = text.isNotBlank() && !isWarning,
-                onClick = { },
+                onClick = onNextClick,
                 modifier = Modifier.align(Alignment.BottomCenter),
             )
         }
@@ -98,6 +101,9 @@ private fun validateInput(input: String): String {
 @Composable
 private fun TraineeProfileSetupScreenPreview() {
     TnTTheme {
-        TraineeProfileSetupScreen()
+        TraineeProfileSetupScreen(
+            onNextClick = {},
+            onBackClick = {},
+        )
     }
 }
