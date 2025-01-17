@@ -24,7 +24,7 @@ import co.kr.tnt.designsystem.component.TnTOutlinedTextField
 import co.kr.tnt.designsystem.component.TnTTopBar
 import co.kr.tnt.designsystem.component.button.TnTBottomButton
 import co.kr.tnt.designsystem.theme.TnTTheme
-import co.kr.tnt.signup.trainee.component.StepProgressHeader
+import co.kr.tnt.signup.trainee.component.ProgressSteps
 
 @Composable
 fun TraineeNoteForTrainerScreen() {
@@ -43,7 +43,7 @@ fun TraineeNoteForTrainerScreen() {
                     .imePadding()
                     .verticalScroll(rememberScrollState()),
             ) {
-                StepProgressHeader(
+                ProgressSteps(
                     currentStep = 4,
                     totalSteps = 4,
                     title = stringResource(R.string.signup_pt_precaution_title),

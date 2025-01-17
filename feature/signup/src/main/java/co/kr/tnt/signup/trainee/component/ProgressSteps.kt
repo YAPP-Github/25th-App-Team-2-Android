@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import co.kr.tnt.designsystem.theme.TnTTheme
 
 @Composable
-fun StepProgressHeader(
+fun ProgressSteps(
     currentStep: Int,
     totalSteps: Int,
     title: String,
@@ -94,7 +94,7 @@ private fun StepIndicator(
 @Composable
 private fun StepProgressHeaderPreview() {
     TnTTheme {
-        StepProgressHeader(
+        ProgressSteps(
             currentStep = 3,
             totalSteps = 4,
             title = "PT를 받는 목적에 대해\n알려주세요!",

@@ -35,7 +35,7 @@ import co.kr.tnt.designsystem.component.TnTLabeledTextField
 import co.kr.tnt.designsystem.component.TnTTopBar
 import co.kr.tnt.designsystem.component.button.TnTBottomButton
 import co.kr.tnt.designsystem.theme.TnTTheme
-import co.kr.tnt.signup.trainee.component.StepProgressHeader
+import co.kr.tnt.signup.trainee.component.ProgressSteps
 import java.util.Calendar
 
 @Composable
@@ -62,7 +62,7 @@ fun TraineeBasicInfoScreen() {
                     .imePadding()
                     .verticalScroll(rememberScrollState()),
             ) {
-                StepProgressHeader(
+                ProgressSteps(
                     currentStep = 2,
                     totalSteps = 4,
                     title = stringResource(R.string.signup_set_basic_info_title),
@@ -150,10 +150,12 @@ private fun BirthdayPicker(
                     year,
                     month,
                     day,
-                ).apply {
-                    // 오늘 이후는 선택 불가능
-                    datePicker.maxDate = today.timeInMillis
-                }.show()
+                )
+                    .apply {
+                        // 오늘 이후는 선택 불가능
+                        datePicker.maxDate = today.timeInMillis
+                    }
+                    .show()
             },
     ) {
         Text(

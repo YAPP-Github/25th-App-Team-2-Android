@@ -27,7 +27,7 @@ import co.kr.tnt.designsystem.component.button.TnTTextButton
 import co.kr.tnt.designsystem.component.button.model.ButtonSize
 import co.kr.tnt.designsystem.component.button.model.ButtonType
 import co.kr.tnt.designsystem.theme.TnTTheme
-import co.kr.tnt.signup.trainee.component.StepProgressHeader
+import co.kr.tnt.signup.trainee.component.ProgressSteps
 
 @Composable
 fun TraineePTPurposeScreen() {
@@ -52,7 +52,7 @@ fun TraineePTPurposeScreen() {
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             Column(modifier = Modifier.fillMaxSize()) {
-                StepProgressHeader(
+                ProgressSteps(
                     currentStep = 3,
                     totalSteps = 4,
                     title = stringResource(R.string.signup_pt_purpose_title),
