@@ -40,6 +40,9 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
+// 000.0 (점 포함 5자리)
+private const val MAX_LENGTH = 5
+
 @Composable
 fun TraineeBasicInfoScreen() {
     // TODO 상태 관리 따로 빼기
@@ -199,10 +202,10 @@ private fun UnitLabel(stringResId: Int) {
 
 /**
  * 유효한 입력값인지 검사 (정수 또는 실수 형식 확인)
- * 형식: 정수 또는 실수
+ * 형식: 5자 이하의 정수 또는 실수
  */
 private fun validateInput(input: String): Boolean {
-    return input.isEmpty() || (input.toDoubleOrNull() != null && !input.startsWith("0"))
+    return input.isEmpty() || (input.toDoubleOrNull() != null && !input.startsWith("0") && input.length <= MAX_LENGTH)
 }
 
 @Preview(showBackground = true)
