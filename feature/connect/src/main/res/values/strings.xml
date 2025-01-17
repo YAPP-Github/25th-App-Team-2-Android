@@ -5,4 +5,8 @@
     <string name="invite_trainee_with_code">생성된 초대코드로\n트레이니가 로그인할 수 있어요</string>
     <string name="my_invite_code">내 초대 코드</string>
     <string name="code_reissue">코드 재발급</string>
+
+    <string name="type_invite_code_from_trainer">트레이너에게 받은\n초대 코드를 입력해 주세요</string>
+    <string name="please_type_code">코드를 입력해주세요</string>
+    <string name="complete">완료</string>
 </resources>
