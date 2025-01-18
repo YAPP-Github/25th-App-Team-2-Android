@@ -15,7 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 internal fun ConnectRoute(
     isTrainer: Boolean,
     navigateToPrevious: () -> Unit,
-    navigateToHome: () -> Unit,
+    navigateToHome: (Boolean) -> Unit,
     @Suppress("UnusedParameter")
     viewModel: ConnectViewModel = hiltViewModel(),
 ) {
@@ -31,7 +31,7 @@ internal fun ConnectRoute(
         page = page,
         onNextClick = nextClick@{
             if (page == ConnectPage.TraineeConnectComplete || page == ConnectPage.TrainerCheckTrainee) {
-                navigateToHome()
+                navigateToHome(isTrainer)
                 return@nextClick
             }
 
@@ -46,7 +46,7 @@ internal fun ConnectRoute(
             page = ConnectPage.getPreviousPage(page)
         },
         onSkipClick = skipClick@{
-            navigateToHome()
+            navigateToHome(isTrainer)
         }
     )
 }

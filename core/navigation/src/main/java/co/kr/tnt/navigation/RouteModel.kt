@@ -20,4 +20,7 @@ sealed interface Route {
 
     @Serializable
     data class Connect(val isTrainer: Boolean) : Route
+
+    @Serializable
+    data object PTSessionForm : Route
 }

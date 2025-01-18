@@ -2,7 +2,6 @@ package co.kr.tnt.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -27,7 +26,7 @@ internal fun HomeRoute(
 @Composable
 fun HomeScreen(isTrainer: Boolean) {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
+        Box(modifier = Modifier.padding()) {
             if (isTrainer) {
                 TrainerHomeContent()
             } else {
@@ -39,24 +38,22 @@ fun HomeScreen(isTrainer: Boolean) {
 
 @Composable
 fun TrainerHomeContent() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        Image(
-            painter = painterResource(R.drawable.img_trainer_home_3x),
-            contentDescription = null,
-            contentScale = ContentScale.Fit,
-        )
-    }
+    Image(
+        modifier = Modifier.fillMaxSize(),
+        painter = painterResource(R.drawable.img_trainer_home_3x),
+        contentDescription = null,
+        contentScale = ContentScale.Fit,
+    )
 }
 
 @Composable
 fun TraineeHomeContent() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        Image(
-            painter = painterResource(R.drawable.img_trainer_home_3x),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-        )
-    }
+    Image(
+        modifier = Modifier.fillMaxSize(),
+        painter = painterResource(R.drawable.img_trainer_home_3x),
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+    )
 }
 
 @Preview(showBackground = true)

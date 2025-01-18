@@ -37,17 +37,18 @@ fun TraineeConnectCompleteScreen(
     val name = "김헬짱"
 
     Scaffold { innerPadding ->
+        Image(
+            painter = painterResource(R.drawable.img_connection_complete_background_3x),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize(),
+        )
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            Image(
-                painter = painterResource(R.drawable.img_connection_complete_background_3x),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize(),
-            )
             Column(Modifier.fillMaxSize()) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,

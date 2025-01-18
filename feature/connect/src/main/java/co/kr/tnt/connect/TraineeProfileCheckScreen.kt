@@ -21,16 +21,18 @@ fun TraineeProfileCheckScreen(
     onNextClick: () -> Unit,
 ) {
     Scaffold { innerPadding ->
+        Image(
+            painter = painterResource(R.drawable.img_trainee_profile_3x),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            Image(
-                painter = painterResource(R.drawable.img_trainee_profile_3x),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-            )
             TnTBottomButton(
                 text = stringResource(co.kr.tnt.core.designsystem.R.string.start),
                 //TODO 홈으로 이동

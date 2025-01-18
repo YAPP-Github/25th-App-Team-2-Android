@@ -7,7 +7,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import co.kr.tnt.connect.navigation.connectScreen
 import co.kr.tnt.connect.navigation.navigateToConnect
+import co.kr.tnt.connect.navigation.navigateToPTSeesionForm
+import co.kr.tnt.connect.navigation.ptSessionFormScreen
 import co.kr.tnt.home.navigation.homeNavGraph
+import co.kr.tnt.home.navigation.navigateToHome
 import co.kr.tnt.login.navigation.loginScreen
 import co.kr.tnt.signup.common.navigateToSignup
 import co.kr.tnt.signup.common.role.navigateToRoleSelection
@@ -41,10 +44,14 @@ fun TnTNavHost(
             )
             connectScreen(
                 navigateToPrevious = { navController.popBackStack() },
-                navigateToHome = {
-                    //isTrainer -> navController.navigateToHome(isTrainer)
+                navigateToHome = { isTrainer ->
+                    if (isTrainer) navController.navigateToHome(isTrainer)
+                    else navController.navigateToPTSeesionForm()
                 }
             )
+            ptSessionFormScreen {
+                navController.navigateToHome(false)
+            }
             homeNavGraph {
 
             }

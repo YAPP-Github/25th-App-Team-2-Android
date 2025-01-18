@@ -119,6 +119,7 @@ fun PTSessionFormScreen(
                 Spacer(Modifier.padding(top = 48.dp))
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.Bottom,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 20.dp),
@@ -242,7 +243,7 @@ private fun validateInput(input: String): Boolean {
     return input.isEmpty() || (input.toIntOrNull() != null && !input.startsWith("0") && input.length <= MAX_COUNT)
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 300)
 @Composable
 private fun PTSessionFormScreenPreview() {
     TnTTheme {
