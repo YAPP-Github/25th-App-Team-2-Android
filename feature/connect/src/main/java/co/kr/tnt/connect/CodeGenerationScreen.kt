@@ -27,7 +27,8 @@ import co.kr.tnt.feature.connect.R
 
 @Composable
 fun CodeGenerationScreen(
-    onSkipClick: () -> Unit,
+    // 연결 완료로 이동하기 위해 Next로 설정
+    onNextClick: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -39,7 +40,7 @@ fun CodeGenerationScreen(
                         color = TnTTheme.colors.neutralColors.Neutral400,
                         style = TnTTheme.typography.body2Medium,
                         modifier = Modifier.clickable {
-                            onSkipClick()
+                            onNextClick()
                         },
                     )
                 },
@@ -106,7 +107,7 @@ fun CodeGenerationScreen(
 private fun CodeGenerationScreenPreview() {
     TnTTheme {
         CodeGenerationScreen(
-            onSkipClick = {},
+            onNextClick = {},
         )
     }
 }

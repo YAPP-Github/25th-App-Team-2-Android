@@ -1,5 +1,6 @@
 package co.kr.tnt.connect
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,7 +30,10 @@ import co.kr.tnt.feature.connect.R
 @Composable
 fun TrainerConnectCompleteScreen(
     onNextClick: () -> Unit,
+    onBackClick: () -> Unit,
 ) {
+    BackHandler { onBackClick() }
+
     val name = "김회원"
 
     Scaffold { innerPadding ->
@@ -120,6 +124,7 @@ private fun TrainerConnectCompleteScreenPreview() {
     TnTTheme {
         TrainerConnectCompleteScreen(
             onNextClick = {},
+            onBackClick = {},
         )
     }
 }

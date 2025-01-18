@@ -1,31 +1,33 @@
-package co.kr.tnt.signup.common
+package co.kr.tnt.connect.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import co.kr.tnt.connect.ConnectRoute
 import co.kr.tnt.navigation.Route
 
-fun NavController.navigateToSignup(
+fun NavController.navigateToConnect(
     isTrainer: Boolean,
     navOptions: NavOptionsBuilder.() -> Unit = {},
 ) = navigate(
-    route = Route.Signup(isTrainer),
+    route = Route.Connect(isTrainer),
     builder = navOptions,
 )
 
-fun NavGraphBuilder.signupScreen(
-    navigateToConnect: (isTrainer: Boolean) -> Unit,
+fun NavGraphBuilder.connectScreen(
     navigateToPrevious: () -> Unit,
+    navigateToHome: () -> Unit,
 ) {
-    composable<Route.Signup> { backstackEntry ->
-        backstackEntry.toRoute<Route.Signup>().apply {
-            SignUpRoute(
+    composable<Route.Connect> { backstackEntry ->
+        backstackEntry.toRoute<Route.Connect>().apply {
+            ConnectRoute(
                 isTrainer = this.isTrainer,
-                navigateToConnect = { navigateToConnect(this.isTrainer) },
                 navigateToPrevious = navigateToPrevious,
+                navigateToHome = navigateToHome,
             )
         }
     }
 }
+

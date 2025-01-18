@@ -2,13 +2,14 @@ package co.kr.tnt.signup.common
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import co.kr.tnt.signup.common.SignUpContract.SignUpSideEffect
+import co.kr.tnt.signup.common.SignUpContract.SignUpUiEvent
 import co.kr.tnt.signup.trainee.TraineeBasicInfoScreen
 import co.kr.tnt.signup.trainee.TraineeNoteForTrainerScreen
 import co.kr.tnt.signup.trainee.TraineePTPurposeScreen
@@ -22,34 +23,46 @@ import co.kr.tnt.signup.trainer.TrainerProfileSetupScreen
 internal fun SignUpRoute(
     isTrainer: Boolean,
     navigateToPrevious: () -> Unit,
+    navigateToConnect: () -> Unit,
     @Suppress("UnusedParameter")
     viewModel: SignUpViewModel = hiltViewModel(),
 ) {
-    var page by rememberSaveable {
-        mutableStateOf(
-            if (isTrainer) SignUpPage.TrainerProfileSetup
-            else SignUpPage.TraineeProfileSetup
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.setEvent(
+            SignUpUiEvent.PageChange(
+                if (isTrainer) SignUpPage.TrainerProfileSetup else SignUpPage.TraineeProfileSetup
+            )
         )
+    }
+
+    LaunchedEffect(viewModel.effect) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                SignUpSideEffect.NavigateToConnect -> navigateToConnect()
+            }
+        }
     }
 
     SignUpScreen(
         modifier = Modifier.padding(20.dp),
-        page = page,
+        page = uiState.currentPage,
         onNextClick = nextClick@{
-            if (page == SignUpPage.TraineeProfileComplete || page == SignUpPage.TrainerProfileComplete) {
-                // TODO 다음 화면
+            if (uiState.currentPage == SignUpPage.TraineeProfileComplete || uiState.currentPage == SignUpPage.TrainerProfileComplete) {
+                viewModel.setEvent(SignUpUiEvent.NavigateToConnect)
                 return@nextClick
             }
 
-            page = SignUpPage.getNextPage(page)
+            viewModel.setEvent(SignUpUiEvent.PageChange(SignUpPage.getNextPage(uiState.currentPage)))
         },
         onBackClick = backClick@{
-            if (page == SignUpPage.TraineeProfileSetup || page == SignUpPage.TrainerProfileSetup) {
+            if (uiState.currentPage == SignUpPage.TraineeProfileSetup || uiState.currentPage == SignUpPage.TrainerProfileSetup) {
                 navigateToPrevious()
                 return@backClick
             }
 
-            page = SignUpPage.getPreviousPage(page)
+            viewModel.setEvent(SignUpUiEvent.PageChange(SignUpPage.getPreviousPage(uiState.currentPage)))
         }
     )
 }

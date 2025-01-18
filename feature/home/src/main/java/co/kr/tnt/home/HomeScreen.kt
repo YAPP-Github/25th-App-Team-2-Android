@@ -54,7 +54,7 @@ fun TraineeHomeContent() {
         Image(
             painter = painterResource(R.drawable.img_trainer_home_3x),
             contentDescription = null,
-            contentScale = ContentScale.Fit,
+            contentScale = ContentScale.Crop,
         )
     }
 }
