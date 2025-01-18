@@ -43,7 +43,7 @@ fun TnTTopBar(
             // horizontal padding 으로 4dp 를 부여하고 있음.
             // 이에 따라 16dp - 4dp 계산값으로 적용
             // see : TopAppBarLayout
-            .padding(horizontal = 12.dp),
+            .padding(start = 12.dp, top = 20.dp, end = 12.dp),
         title = {
             Text(
                 text = title,
@@ -100,7 +100,7 @@ fun TnTTopBarNoBackButton(
             // horizontal padding 으로 4dp 를 부여하고 있음.
             // 이에 따라 16dp - 4dp 계산값으로 적용
             // see : TopAppBarLayout
-            .padding(horizontal = 12.dp),
+            .padding(start = 12.dp, top = 20.dp, end = 12.dp),
         title = {
             Text(
                 text = title,

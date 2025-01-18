@@ -50,7 +50,7 @@ fun TrainerHomeContent() {
 fun TraineeHomeContent() {
     Image(
         modifier = Modifier.fillMaxSize(),
-        painter = painterResource(R.drawable.img_trainer_home_3x),
+        painter = painterResource(R.drawable.img_trainee_home_3x),
         contentDescription = null,
         contentScale = ContentScale.Crop,
     )
