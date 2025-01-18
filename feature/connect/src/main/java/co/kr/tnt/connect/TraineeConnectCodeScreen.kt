@@ -35,7 +35,7 @@ fun TraineeConnectCodeScreen(
 ) {
     val maxLength = 8
     var text by remember { mutableStateOf("") }
-    val isWarning by remember { derivedStateOf { text.length == maxLength } }
+    var isWarning by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -81,14 +81,14 @@ fun TraineeConnectCodeScreen(
                         TnTTextButton(
                             text = "인증하기",
                             size = ButtonSize.Small,
-                            onClick = { },
+                            onClick = { isWarning = text.length >= 6 },
                         )
                     },
                 )
             }
             TnTBottomButton(
                 text = stringResource(R.string.complete),
-                enabled = text.isNotBlank() && !isWarning,
+                enabled = text.isNotBlank() && isWarning,
                 onClick = onNextClick,
                 modifier = Modifier.align(Alignment.BottomCenter),
             )
